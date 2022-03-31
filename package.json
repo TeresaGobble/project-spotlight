@@ -5,7 +5,7 @@
   "main": "./server/index.ts",
   "scripts": {
     "test": "test",
-    "start": "webpack serve --port 3000",
+    "start": "node --loader ts-node/esm ./server/index.ts",
     "build": "NODE_ENV=production webpack"
   },
   "repository": {
@@ -17,6 +17,7 @@
     "stack",
     "engineer"
   ],
+  "type": "module",
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -32,6 +33,7 @@
     "nodemon": "^2.0.15",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "ts-node": "^10.7.0",
     "typescript": "^4.6.3"
   },
   "devDependencies": {
