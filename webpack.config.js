@@ -7,7 +7,8 @@ module.exports = {
   mode: prod ? 'production' : 'development',
   entry: './client/index.tsx',
   output: {
-    path: __dirname + '/dist/',
+    filename: bundle.js.,
+    path: __dirname + '/dist/'
   },
   module: {
     rules: [

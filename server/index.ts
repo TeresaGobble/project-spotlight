@@ -1,4 +1,4 @@
-import express, { Express, request, Request, Response } from 'express';
+import express, { Express, Request, Response } from 'express';
 // import {Axios} from 'axios';
 const port = 3210;
 
