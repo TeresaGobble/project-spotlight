@@ -1,9 +1,13 @@
 import React from 'react';
+import Map from './Map';
 
 const App = () => {
 
   return (
-    <h2>This is from the App component</h2>
+    <div>
+      <h2>This is from the App component!</h2>
+      <Map/>
+    </div>
   )
 }
 

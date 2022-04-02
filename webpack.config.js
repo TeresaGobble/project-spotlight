@@ -7,6 +7,7 @@ module.exports = {
   mode: prod ? 'production' : 'development',
   entry: './client/index.tsx',
   output: {
+    filename: 'bundle.js',
     path: __dirname + '/dist/',
   },
   module: {
@@ -26,6 +27,9 @@ module.exports = {
     ]
   },
   devtool: prod ? undefined : 'source-map',
+  performance: {
+    hints: false
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
