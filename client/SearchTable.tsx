@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Chart } from "chart.js";
 const SearchTable = () => {
 
   // dummy search data for 3/20 - 3/21
@@ -20718,16 +20718,62 @@ const SearchTable = () => {
 //     myTable?.appendChild(table);
 //   });
 
+//   const ctx: HTMLElement = document.getElementById('myChart')!;
+//   console.log('ctx', ctx);
+
+// //   const chart: Chart = new Chart (ctx, {
+//     type: 'bar',
+//     data: {
+//         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+//         datasets: [{
+//             label: '# of Votes',
+//             data: [12, 19, 3, 5, 2, 3],
+//             backgroundColor: [
+//                 'rgba(255, 99, 132, 0.2)',
+//                 'rgba(54, 162, 235, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(255, 159, 64, 0.2)'
+//             ],
+//             borderColor: [
+//                 'rgba(255, 99, 132, 1)',
+//                 'rgba(54, 162, 235, 1)',
+//                 'rgba(255, 206, 86, 1)',
+//                 'rgba(75, 192, 192, 1)',
+//                 'rgba(153, 102, 255, 1)',
+//                 'rgba(255, 159, 64, 1)'
+//             ],
+//             borderWidth: 1
+//         }]
+//     },
+//     options: {
+//         scales: {
+//             y: {
+//                 beginAtZero: true
+//             }
+//         }
+//     }
+//   });
+
+  let handleClick = () => {
+    searchResults.forEach(e => {
+        console.log('On March ' + e.date.slice(8, 10) + ' ' + e.date.slice(0, 4) + ' at ' + e.date.slice(11, 16) + ', there was a ' + e.primary_type + ' (' + e.description + ') on ' + e.block.slice(6))
+        })
+    }
+
   return (
     <div>
-      <h2>This is where the SearchTable begins</h2>
+      <h2>This is where the SearchTable would render if TypeScript wasn't so picky</h2>
       <h4>{searchResults.length} crimes were returned from your search.</h4>
-      <div>
-          <canvas id="myChart"></canvas>
-      </div>
+      {/* <div>
+          <canvas id="myChart" width="800" height="600"></canvas>
+      </div> */}
       <div className="table">
-        <button id="btn">Get Crimes</button>
-        <div className="result"></div>
+        <button id="btn" onClick={handleClick}>Get Crimes</button>
+        {/* {searchResults.forEach((e) => (
+            console.log(e.primary_type)
+        ))} */}
       </div>
     </div>
   )
