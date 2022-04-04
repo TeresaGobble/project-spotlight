@@ -2,7 +2,7 @@
   "name": "project-spotlight",
   "version": "1.0.0",
   "description": "crime data for community use and safety",
-  "main": "./client/index.js",
+  "main": "./client/index.tsx",
   "scripts": {
     "test": "test",
     "start": "nodemon ./server/index.ts",
