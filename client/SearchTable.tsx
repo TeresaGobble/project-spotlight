@@ -20682,6 +20682,7 @@ const SearchTable = () => {
   ];
 
 //   let searchButton = document.getElementById("btn");
+//   console.log(searchButton);
 //   let btnGet = document.querySelector('button');
 //   let myTable = document.querySelector(".table");
 
@@ -20724,10 +20725,10 @@ const SearchTable = () => {
       <div>
           <canvas id="myChart"></canvas>
       </div>
-      {/* <div className="table">
+      <div className="table">
         <button id="btn">Get Crimes</button>
         <div className="result"></div>
-      </div> */}
+      </div>
     </div>
   )
 }
