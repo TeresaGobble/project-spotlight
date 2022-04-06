@@ -3,7 +3,7 @@ import express, { Express, Request, Response } from 'express';
 const port = 8081;
 const app: Express = express();
 
-import {getAllCrimes, getSearchedCrime} from '../database/queries.js'
+import {getAllCrimes, getSearchedCrime} from '../database/queries'
 
 app.use(express.json());
 

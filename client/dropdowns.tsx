@@ -1,12 +1,10 @@
 import React from 'react';
 import './index.css'
 
-const Dropdowns = () => {
+const Dropdowns = () => (
 
-  return (
-    <div>DROPDOWNS</div>
-  )
+  <div>DROPDOWNS</div>
 
-}
+)
 
 export default Dropdowns;
