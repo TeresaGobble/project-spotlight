@@ -1,7 +1,6 @@
 import React from 'react';
 import Dropdowns from './Dropdowns';
-
-// import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import CrimeMap from './CrimeMap';
 
 const App = () => {
 
@@ -23,6 +22,7 @@ const App = () => {
     <div className="map">
       <h1>this is from the appp component</h1>
       <Dropdowns />
+      <CrimeMap />
     </div>
   )
 }

@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "module": "commonjs",
-    "moduleResolution": "node",
     "lib": [
       "dom",
       "esnext"
     ],
-    "strict": true,
     "sourceMap": true,
     "target": "esnext",
   },
