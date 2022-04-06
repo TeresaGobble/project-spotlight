@@ -25,7 +25,7 @@ const leaflet = require('./../node_modules/leaflet/dist/leaflet')
 //   // placeholder for props?
 // }
 
-interface Crime {
+interface CrimeSample {
   latitude: number;
   longitude: number;
   primaryType: string;
@@ -45,9 +45,9 @@ const CrimeMap = () => {
 
   // console.log('latitude, longitude, description', latitude, longitude, description)
 
-  const crimesArr: Crime[] = [];
+  const crimesArr: CrimeSample[] = [];
   for (let i = 0; i < crimes.features.length; i++) {
-    const crimeObj: Crime = {
+    const crimeObj: CrimeSample = {
       latitude: +crimes.features[i].properties.latitude,
       longitude: +crimes.features[i].properties.longitude,
       primaryType: crimes.features[i].properties.primary_type,
