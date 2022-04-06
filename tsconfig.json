@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "module": "esnext",
     "moduleResolution": "node",
     "lib": [
       "dom",
