@@ -27,3 +27,14 @@ app.get("/Chi", (req: any, res: any) => {
    res.send('THE SERVER WOrks')
 
 });
+
+// app.get("/", (req: any, res: any) => {
+//    axios.get('https://data.cityofchicago.org/resource/ijzp-q8t2.geojson')
+//       .then(result=> {
+//          console.log('we done got the request from the axios get request')
+//          res.send(result.data);
+//       })
+//       .catch(error => {
+//          res.status(500).send("OH NO, AN ERROR: ", error)
+//       })
+// });

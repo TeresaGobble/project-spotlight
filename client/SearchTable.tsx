@@ -1,5 +1,5 @@
 import React from "react";
-import { Chart } from "chart.js";
+// import { Chart } from "chart.js";
 const SearchTable = () => {
 
   // dummy search data for 3/20 - 3/21
