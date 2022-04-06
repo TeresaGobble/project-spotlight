@@ -1,18 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es2015",
     "module": "commonjs",
     "strict": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "moduleResolution": "node",
     "lib": [
       "dom",
       "esnext"
     ],
-    "strict": true,
     "sourceMap": true,
     "target": "esnext",
   },
