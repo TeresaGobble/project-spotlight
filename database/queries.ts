@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-interface Crime {
+export interface Crime {
   id: string,
   case_number: string,
   date: string,

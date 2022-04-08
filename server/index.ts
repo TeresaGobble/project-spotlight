@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from 'express';
+import cors from 'cors';
 
 const port = 8081;
 const app: Express = express();
@@ -6,15 +7,19 @@ const app: Express = express();
 import {getAllCrimes, getSearchedCrime} from '../database/queries'
 
 app.use(express.json());
+app.use(cors());
 
-app.get("/", (Request, Response) => {
+app.get('/crimes', (Request, Response) => {
   console.log('crimes?', getAllCrimes());
-  Response.send('meow');
+  getAllCrimes()
+  .then((res) => {
+    Response.send(res);
+  })
 });
 
 app.get("/searched", (Request, Response) => {
   console.log('searched crime', getSearchedCrime());
-  Response.send('yes?');
+  Response.send();
 });
 
 app.listen(port, () => {
