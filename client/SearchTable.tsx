@@ -21106,20 +21106,52 @@ const SearchTable = () => {
 //         })
 //     console.log(document.getElementById("btn"));
 //     }
+  const months = {
+      "01": "January",
+      "02": "February",
+      "03": "March",
+      "04": "April",
+      "05": "May",
+      "06": "June",
+      "07": "July",
+      "08": "August",
+      "09": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December"
+  }
 
 
   return (
     <div>
-      <h2>This is where the SearchTable component</h2>
+      <h2>SearchTable component begins here</h2>
       <h4>{searchResults.length} crimes were returned from your search.</h4>
       {/* <div>
           <canvas id="myChart" width="800" height="600"></canvas>
       </div> */}
       <div className="table">
-        <button id="btn">Get Crimes</button>
-        {shortenedSearchResults.map((e, index) => (
+        <table>
+            {/* TODO: Snap top row to stay visible while scrolling down */}
+            <tbody className="scrollTable">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Crime</th>
+                <th>Street</th>
+            </tr>
+            {searchResults.map((e, index) => (
+                <tr>
+                    <td>{e.date.slice(5, 7)}/{e.date.slice(8, 10)}/{e.date.slice(0, 4)}</td>
+                    <td>{e.date.slice(11, 16)}</td>
+                    <td>{e.primary_type} {e.description}</td>
+                    <td>{e.block.slice(6)}</td>
+                </tr>
+            ))}
+            </tbody>
+        </table>
+        {/* {shortenedSearchResults.map((e, index) => (
             <h5>{'On March ' + e.date.slice(8, 10) + ', ' + e.date.slice(0, 4) + ' at ' + e.date.slice(11, 16) + ', there was a ' + e.primary_type + ' (' + e.description + ') on ' + e.block.slice(6)}</h5>
-        ))}
+        ))} */}
       </div>
     </div>
   )
