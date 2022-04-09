@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import SearchTable from './SearchTable';
 import Dropdowns from './Dropdowns';
 import CrimeMap from './CrimeMap';
+import Authentication from './Authentication/Authentication';
 
 const App = () => {
 
@@ -9,6 +10,9 @@ const App = () => {
 
     <div id='app-root'>
       <h1>This is the start of the App</h1>
+      <div className="auth">
+        <Authentication />
+      </div>
       <Dropdowns />
       <SearchTable />
       <div className="map">

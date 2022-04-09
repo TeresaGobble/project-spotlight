@@ -21134,17 +21134,19 @@ const SearchTable = () => {
             {/* TODO: Snap top row to stay visible while scrolling down */}
             <tbody className="scrollTable">
             <tr>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Crime</th>
-                <th>Street</th>
+                <th> Date </th>
+                <th> Time </th>
+                <th> Crime </th>
+                <th> Description </th>
+                <th> Street </th>
             </tr>
             {searchResults.map((e, index) => (
                 <tr>
-                    <td>{e.date.slice(5, 7)}/{e.date.slice(8, 10)}/{e.date.slice(0, 4)}</td>
-                    <td>{e.date.slice(11, 16)}</td>
-                    <td>{e.primary_type} {e.description}</td>
-                    <td>{e.block.slice(6)}</td>
+                    <td> {e.date.slice(5, 7)}/{e.date.slice(8, 10)}/{e.date.slice(0, 4)} </td>
+                    <td> {e.date.slice(11, 16)} </td>
+                    <td> {e.primary_type} </td>
+                    <td> {e.description} </td>
+                    <td> {e.block.slice(6)} </td>
                 </tr>
             ))}
             </tbody>

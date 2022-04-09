@@ -1,6 +1,9 @@
 # package-lock.json
 package-lock.json
 
+#firebase-config
+firebase-config.js
+
 # Logs
 logs
 *.log
