@@ -8,10 +8,10 @@ const Dropdowns = () => {
 
   const crimes: any[] = [];
 
-  const [latitude, setLatitude] = useState(crimes);
-  const [primaryType, setPrimaryType] = useState(crimes[0][0].primaryType);
-  const [description, setDescription] = useState(crimes[0][0].description);
-  const [date, setData] = useState(crimes[0][0].date);
+  const [latitude, setLatitude] = useState('');
+  const [primaryType, setPrimaryType] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
 
   useEffect(() => {
     axios.get<Crime>('http://localhost:8081/crimes')
@@ -20,17 +20,27 @@ const Dropdowns = () => {
       crimes.push(res.data);
       console.log('CRIMES ARRAY', crimes);
     })
+    .then(() => {
+      setLatitude(crimes[0][0].latitude)
+      setPrimaryType(crimes[0][0].primary_type)
+      setDescription(crimes[0][0].description)
+      setDate(crimes[0][0].date)
+    })
     // add another then block for states
-      // set the states using onChange and onSubmit (event.target.value)
-    // meow
     .catch((err: any) => {
       console.log('U FAILED', err);
     })
-  })
+  }, [])
+  // console.log('LATITUDE and friends', latitude, primaryType, description, date);
 
-  // console.log('LATITUDE', latitude);
     // create a function that handles submit
-
+    // set the states using onChange and onSubmit (event.target.value)
+    const filterCrimes = (crimes: any) => {
+      // let filteredCrimes = [];
+        crimes.forEach((crime: any) => {
+        console.log('FILTERING?', crime);
+      })
+    }
 
   return (
   <div>
@@ -70,11 +80,12 @@ const Dropdowns = () => {
       <option value="weapons violation">WEAPONS VIOLATION</option>
     </select>
     <select>
-      <option value="arson">ARSON</option>
+      <option value="arson">{latitude}</option>
       <option value="lime">Lime</option>
       <option selected value="coconut">Coconut</option>
       <option value="mango">Mango</option>
     </select>
+    <button type='submit' onClick={() => filterCrimes(crimes)}> Search </button>
   </div>
   )
 }
