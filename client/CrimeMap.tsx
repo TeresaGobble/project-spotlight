@@ -35,7 +35,7 @@ interface CrimeSample {
 const CrimeMap = () => {
   //array containing crimes that fit the user's entered criteria
 
-  console.log("The crimes Data", crimes.features[0].properties.latitude)
+  // console.log("The crimes Data", crimes.features[0].properties.latitude)
 
   // locations of each piece of data in the object:
   // const latitude: string = crimes.features[0].properties.latitude;
@@ -56,7 +56,7 @@ const CrimeMap = () => {
     crimesArr.push(crimeObj);
   }
 
-  console.log("crimesArr", crimesArr[0].description)
+  // console.log("crimesArr", crimesArr[0].description)
   // crimes.features is an array of objects, each representing a crime
   // const position: Array<number> | undefined = [51.505, -0.09] <--- need to make this dynamic
   return (

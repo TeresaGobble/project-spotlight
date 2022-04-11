@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/crimes', (Request, Response) => {
-  console.log('crimes?', getAllCrimes());
+  // console.log('crimes?', getAllCrimes());
   getAllCrimes()
   .then((res) => {
     Response.send(res);
@@ -18,7 +18,7 @@ app.get('/crimes', (Request, Response) => {
 });
 
 app.get("/searched", (Request, Response) => {
-  console.log('searched crime', getSearchedCrime());
+  // console.log('searched crime', getSearchedCrime());
   Response.send();
 });
 

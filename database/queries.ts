@@ -34,7 +34,7 @@ export interface Crime {
     // the JSON body is taken from the response
       .then(res => res.json())
       .then(res => {
-              console.log(res);
+              // console.log(res);
               return res as Crime
       })
   }

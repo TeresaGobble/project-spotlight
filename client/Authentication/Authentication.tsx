@@ -15,41 +15,54 @@ const Authentication = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
-  // // onAuthStateChanged(auth, (currentUser) => {
-  // //   setUser(currentUser);
-  // // });
+  // let userEmail: any = "";
 
-  // const register = async () => {
-  //   try {
-  //     const user = await createUserWithEmailAndPassword(
-  //       auth,
-  //       registerEmail,
-  //       registerPassword
-  //     );
-  //     console.log(user);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //   }
-  // };
+  onAuthStateChanged(auth, (currentUser: any) => {
+    setUser(currentUser);
+  });
 
-  // const login = async () => {
-  //   try {
-  //     const user = await signInWithEmailAndPassword(
-  //       auth,
-  //       loginEmail,
-  //       loginPassword
-  //     );
-  //     console.log(user);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //   }
-  // };
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+      console.log('user being registered: ', user);
+      let newEmail: any = user.user.email;
+      setUserEmail(newEmail);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
-  // const logout = async () => {
-  //   await signOut(auth);
-  // };
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPassword
+      );
+      console.log('user being logged in: ', user);
+      let newEmail: any = user.user.email;
+      setUserEmail(newEmail);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      signOut(auth);
+      console.log('user being logged out: ', user);
+      setUserEmail("");
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div>
@@ -71,8 +84,7 @@ const Authentication = () => {
           }}
         />
 
-        {/* <button onClick={register}> Create User</button> */}
-        <button onClick={() => console.log('Submitted Create User: ', registerEmail, registerPassword)}> Create User</button>
+        <button onClick={register}> Create User</button>
       </div>
 
       <div>
@@ -92,16 +104,14 @@ const Authentication = () => {
           }}
         />
 
-        {/* <button onClick={login}> Login</button> */}
-        <button onClick={() => console.log('Attempted Credentials: ', loginEmail, loginPassword)}> Login</button>
+        <button onClick={login}> Login</button>
       </div>
 
       <h4> User Logged In: </h4>
-      {/* {user} */}
+      userEmail: {userEmail}
       {/* {user?.email} */}
 
-      {/* <button onClick={logout}> Sign Out </button> */}
-      <button> Sign Out</button>
+      <button onClick={logout}> Sign Out </button>
     </div>
   )
 }

@@ -17,7 +17,7 @@ const Dropdowns = () => {
   useEffect(() => {
     axios.get<Crime>('http://localhost:8081/crimes')
     .then((res: any) => {
-      console.log('RESPONSE??', res.data);
+      // console.log('RESPONSE??', res.data);
     })
     .catch((err: any) => {
       console.log('U FAILED', err);
