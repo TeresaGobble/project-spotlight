@@ -18,7 +18,6 @@ const Authentication = () => {
   const [user, setUser] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
-  // let userEmail: any = "";
 
   onAuthStateChanged(auth, (currentUser: any) => {
     setUser(currentUser);
@@ -31,9 +30,10 @@ const Authentication = () => {
         registerEmail,
         registerPassword
       );
-      console.log('user being registered: ', user);
+      // console.log('user being registered: ', user);
       let newEmail: any = user.user.email;
       setUserEmail(newEmail);
+      window.alert("New user created, welcome to Project Spotlight!");
     } catch (error: any) {
       console.log(error.message);
     }
@@ -46,9 +46,11 @@ const Authentication = () => {
         loginEmail,
         loginPassword
       );
-      console.log('user being logged in: ', user);
-      let newEmail: any = user.user.email;
-      setUserEmail(newEmail);
+      // console.log('user being logged in: ', user);
+      let existingAccountEmail: any = user.user.email;
+      setUserEmail(existingAccountEmail);
+      let welcomeMessage: string = "Welcome back " + existingAccountEmail;
+      window.alert(welcomeMessage);
     } catch (error: any) {
       console.log(error.message);
     }
@@ -57,7 +59,8 @@ const Authentication = () => {
   const logout = async () => {
     try {
       signOut(auth);
-      console.log('user being logged out: ', user);
+      // console.log('user being logged out: ', user);
+      window.alert("Successfully logged out");
       setUserEmail("");
     } catch (error: any) {
       console.log(error.message);
@@ -89,26 +92,27 @@ const Authentication = () => {
 
       <div>
         <h3> Login </h3>
-        <input
-          placeholder="Email..."
-          onChange={(e) => {
-            setLoginEmail(e.target.value);
-            console.log('loginEmail: ', loginEmail);
-          }}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(e) => {
-            setLoginPassword(e.target.value);
-            console.log('loginPasword: ', loginPassword);
-          }}
-        />
+          <input
+            placeholder="Email..."
+            onChange={(e) => {
+              setLoginEmail(e.target.value);
+              console.log('loginEmail: ', loginEmail);
+            }}
+          />
+          <input
+            placeholder="Password..."
+            type="password"
+            onChange={(e) => {
+              setLoginPassword(e.target.value);
+              console.log('loginPasword: ', loginPassword);
+            }}
+          />
 
-        <button onClick={login}> Login</button>
+          <button onClick={login}> Login</button>
       </div>
 
-      <h4> User Logged In: </h4>
-      userEmail: {userEmail}
+      <h4> User Logged In: {userEmail}</h4>
+      {/* why can't I use conditional rendering with TypeScript? */}
       {/* {user?.email} */}
 
       <button onClick={logout}> Sign Out </button>

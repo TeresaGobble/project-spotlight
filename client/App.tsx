@@ -3,6 +3,7 @@ import SearchTable from './SearchTable';
 import Dropdowns from './Dropdowns';
 import CrimeMap from './CrimeMap';
 import Authentication from './Authentication/Authentication';
+import Footer from './Footer';
 
 const App = () => {
 
@@ -15,6 +16,7 @@ const App = () => {
       </div>
       <Dropdowns />
       <SearchTable />
+      <Footer />
       <div className="map">
         <h1>this is from the appp component</h1>
         <CrimeMap />
