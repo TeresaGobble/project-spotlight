@@ -410,11 +410,13 @@ const Footer = () => {
       <div>
         <a href='https://github.com/Mountain-Everest/project-spotlight'>Our Project</a>
         <br></br>
-        <a href='https://github.com/yellowstrings'>Anisah Majeed</a>
+        <a href='https://www.linkedin.com/in/yellowstrings/'>Anisah Majeed</a>
         <br></br>
-        <a href='https://github.com/clwilshire'>Charles Wilshire</a>
+        <a href='https://www.linkedin.com/in/charles-wilshire/'>Charles Wilshire</a>
         <br></br>
-        <a href='https://github.com/TeresaGobble'>Teresea Gobble</a>
+        <a href='https://www.linkedin.com/in/teresa-gobble/'>Teresea Gobble</a>
+        <br></br>
+        <a href='https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present-Dashboard/5cd6-ry5g'>City of Chicago Crime Data</a>
         <br></br>
         <button onClick={get}>Download Search Results (.csv)</button>
       </div>
