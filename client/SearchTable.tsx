@@ -21107,6 +21107,7 @@ const SearchTable = () => {
 //     console.log(document.getElementById("btn"));
 //     }
 
+  //props.crimeContext <=== don't hard code this- just use it in place of shortenedSearchResults
 
   return (
     <div>

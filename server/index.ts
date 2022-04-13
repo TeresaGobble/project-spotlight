@@ -17,6 +17,9 @@ app.get("/searched", (Request, Response) => {
   Response.send('yes?');
 });
 
+// my understanding is that the dropdown makes an object that is sent here to the server, which then uses the query in DB to make an API request?
+
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
