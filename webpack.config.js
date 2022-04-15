@@ -21,6 +21,14 @@ module.exports = {
         use: 'ts-loader',
       },
       {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        resolve: {
+          extensions: ['.js'],
+        },
+        use: 'babel-loader',
+      },
+      {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
