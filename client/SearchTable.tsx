@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CrimesContext } from "./CrimesContext.js";
 // import { Chart } from "chart.js";
 const SearchTable = () => {
+  const { crimes } = useContext(CrimesContext);
 
   // dummy search data for 3/20 - 3/21
   // example set of data with only 10 results for viewing convenience, will be replaced with actual search results
@@ -21118,7 +21120,7 @@ const SearchTable = () => {
       </div> */}
       <div className="table">
         <button id="btn">Get Crimes</button>
-        {shortenedSearchResults.map((e, index) => (
+        {crimes.map((e, index) => (
             <h5>{'On March ' + e.date.slice(8, 10) + ', ' + e.date.slice(0, 4) + ' at ' + e.date.slice(11, 16) + ', there was a ' + e.primary_type + ' (' + e.description + ') on ' + e.block.slice(6)}</h5>
         ))}
       </div>

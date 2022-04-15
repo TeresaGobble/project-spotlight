@@ -57,3 +57,5 @@ interface Crime {
               return res as Crime
       })
   }
+
+export default Crime
