@@ -38,17 +38,16 @@ export interface Crime {
               return res as Crime
       })
   }
-
+  let primary_type = 'BATTERY';
+  let description = 'SIMPLE'
+  let year = 2016;
   // i need to create variables or states for all of the dropdowns
     // primary type (crime)
-
-    let primary_type = 'NARCOTICS';
-    let description = 'POSS: HEROIN(BRN/TAN)'
-    let year = '2015'
 
     // description (crime subcategory)
     // dates?
 
+    // pass parameters into function
   export function getSearchedCrime(): Promise<Crime> {
     return fetch (`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primary_type}&description=${description}&year=${year}`)
       .then(res => res.json())

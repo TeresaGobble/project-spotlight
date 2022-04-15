@@ -10,9 +10,12 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/crimes', (Request, Response) => {
-  console.log('crimes?', getAllCrimes());
+  // req.params or req.query comes here
+    // we pass it into getSearchedCrime()
+  // console.log('crimes?', getAllCrimes());
   getAllCrimes()
   .then((res) => {
+    // console.log('RESPONSE IN SERVER', res);
     Response.send(res);
   })
 });
