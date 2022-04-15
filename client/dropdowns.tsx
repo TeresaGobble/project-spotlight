@@ -92,7 +92,7 @@ const Dropdowns = () => {
     .then((res: any) => {
       crimes.push(res.data);
       for (let i = 0; i < crimes.length; i++) {
-        console.log(crimes[i]);
+        // console.log(crimes[i]);
       }
     })
     .then(() => {

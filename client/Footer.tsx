@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CrimesContext } from "./CrimesContext.js";
 
 const Footer = () => {
+
+  const { crimes } = useContext(CrimesContext);
+
   const shortenedSearchResults = [
     {
         "id": "12647725",
@@ -21072,14 +21076,14 @@ const searchResults = [
     const singleRowAssembler = (dataRow: Object) => {
         csvRows.push(Object.values(dataRow).slice(0, 21).join(','));
     }
-    searchResults.map((e, index) => {
+    crimes.map((e, index) => {
         singleRowAssembler(e);
     })
     return csvRows.join('\n');
   }
 
   const get = async () => {
-    downloadCSV(csvAssembler(searchResults));
+    downloadCSV(csvAssembler(crimes));
   }
 
   return (

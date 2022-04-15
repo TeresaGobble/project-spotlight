@@ -1,6 +1,10 @@
-import React from "react";
+import React, { Component, useContext } from "react";
+import { CrimesContext } from "./CrimesContext.js";
+
 // import { Chart } from "chart.js";
 const SearchTable = () => {
+
+  const { crimes } = useContext(CrimesContext);
 
   // dummy search data for 3/20 - 3/21
   // example set of data with only 10 results for viewing convenience, will be replaced with actual search results
@@ -21028,7 +21032,7 @@ const SearchTable = () => {
   return (
     <div>
       <h2>SearchTable component begins here</h2>
-      <h4>{searchResults.length} crimes were returned from your search.</h4>
+      <h4>{crimes.length} crimes were returned from your search.</h4>
       <div className="table">
         <table>
             {/* TODO: Snap top row to stay visible while scrolling down */}
@@ -21040,7 +21044,7 @@ const SearchTable = () => {
                 <th> Description </th>
                 <th> Street </th>
             </tr>
-            {searchResults.map((e, index) => (
+            {crimes.map((e, index) => (
                 <tr>
                     <td> {e.date.slice(5, 7)}/{e.date.slice(8, 10)}/{e.date.slice(0, 4)} </td>
                     <td> {e.date.slice(11, 16)} </td>

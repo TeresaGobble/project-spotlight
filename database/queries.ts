@@ -34,7 +34,7 @@ export interface Crime {
     // the JSON body is taken from the response
       .then(res => res.json())
       .then(res => {
-              console.log(res);
+              // console.log(res);
               return res as Crime
       })
   }
@@ -52,7 +52,7 @@ export interface Crime {
     return fetch (`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primary_type}&description=${description}&year=${year}`)
       .then(res => res.json())
       .then(res => {
-              console.log(res);
+              // console.log(res);
               return res as Crime
       })
   }
