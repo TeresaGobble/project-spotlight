@@ -14,7 +14,7 @@ import { CrimesContext } from "./CrimesContext.js"; //typescript error
 
 // import crimes from './../data/crimes.json'
 // import * as crimes from './../data/crimes.json'
-const crimes = require('./../data/crimes.json')
+const crimes = require('../data/crimes.json')
 //import "leaflet/dist/leaflet.css"
 
 const leaflet = require('./../node_modules/leaflet/dist/leaflet')
@@ -46,6 +46,20 @@ const CrimeMap = () => {
 
   // console.log('latitude, longitude, description', latitude, longitude, description)
 
+
+  // const crimesArr: CrimeSample[] = [];
+  // for (let i = 0; i < crimes.features.length; i++) {
+  //   const crimeObj: CrimeSample = {
+  //     latitude: +crimes.features[i].properties.latitude,
+  //     longitude: +crimes.features[i].properties.longitude,
+  //     primaryType: crimes.features[i].properties.primary_type,
+  //     description: crimes.features[i].properties.description,
+  //   };
+  //   crimesArr.push(crimeObj);
+  // }
+
+
+  // console.log("crimesArr", crimesArr[0].description)
   // crimes.features is an array of objects, each representing a crime
   // const position: Array<number> | undefined = [51.505, -0.09] <--- need to make this dynamic
 

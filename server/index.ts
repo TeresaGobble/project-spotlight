@@ -21,7 +21,7 @@ app.get('/crimes', (Request, Response) => {
 });
 
 app.get("/searched", (Request, Response) => {
-  console.log('searched crime', getSearchedCrime());
+  // console.log('searched crime', getSearchedCrime());
   Response.send();
 });
 

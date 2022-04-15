@@ -8,3 +8,23 @@ body {
 .leaflet-container {
   height: 1000px
 }
+
+table, th, tr, td {
+  border: 1px solid black;
+}
+
+th {
+  padding: right left 5px;
+  position: sticky;
+}
+
+tr:hover {
+  background-color: cadetblue;
+}
+
+.scrollTable {
+  display: block;
+  height: 256px;
+  width:fit-content;
+  overflow: auto;
+}
