@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios, {AxiosResponse} from 'axios';
-import {Crime, getAllCrimes, getSearchedCrime} from '../database/queries';
-import './index.css';
+import {Crime} from '../database/queries';
+// import './index.css';
 import { CrimesContext } from "./CrimesContext"; //need the context here (since dropdowns set the crime object content)
 
 // need to set the values here to the crimes context object (like "setState")
@@ -12,9 +12,22 @@ const Dropdowns = () => {
 
   const [latitude, setLatitude] = useState('');
   const [primaryType, setPrimaryType] = useState('');
+  // STATES CANNOT BE GLOBALLY SCOPED
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
-  // const [chosenPrimary, setChosenPrimary] = useState(false);
+
+  // I CANNOT EXPORT THIS FROM INSIDE OF THIS "CONST DROPDOWNS"
+    // BUT IF I MOVE IT OUTSIDE, I RUN INTO A SCOPING ERROR
+
+  // const getCrime = (primaryType: string, description: string) => {
+  //   axios.get<Crime>(`http://localhost:8081/crimes?primary_type=${primaryType}&description=${description}`)
+  //   .then (res => {
+  //     console.log('YES HI ITS ME', res);
+  //   })
+  //   .catch (err => {
+  //     console.log('LOSER', err);
+  //   })
+  // }
 
   const crimeInfo : any = {
     'ARSON': ['BY EXPLOSIVE', 'BY FIRE', 'AGGRAVATED', 'POSSESSION - EXPLOSIVE / INCENDIARY DEVICE', 'POSSESSION - CHEMICAL / DRY-ICE DEVICE', 'ATTEMPT ARSON'],
@@ -84,16 +97,20 @@ const Dropdowns = () => {
     'WEAPONS VIOLATION': ['UNLAWFUL USE - HANDGUN', 'UNLAWFUL USE - OTHER FIREARM', 'UNLAWFUL USE - OTHER DANGEROUS WEAPON', 'UNLAWFUL SALE - HANDGUN', 'UNLAWFUL SALE - OTHER FIREARM', 'UNLAWFUL SALE - DELIVERY OF FIREARM AT SCHOOL', 'UNLAWFUL POSSESSION - HANDGUN', 'UNLAWFUL POSSESSION - OTHER FIREARM', 'UNLAWFUL POSSESSION - AMMUNITION', 'REGISTER OF SALES BY DEALER', 'DEFACE IDENTIFICATION MARKS OF FIREARM', 'POSSESS FIREARM / AMMUNITION - NO FOID CARD', 'SALE OF METAL PIERCING BULLETS', 'USE OF METAL PIERCING BULLETS', 'RECKLESS FIREARM DISCHARGE', 'UNLAWFUL USE / SALE OF AIR RIFLE']
   };
 
+  async function getSearchedCrime(primaryType: string, description: string): Promise<Crime> {
+    console.log('meow', primaryType, description);
+    const res = await fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}`);
+    const data = await res.json();
+    console.log('meow', res);
+    // set crimes context here ! and pass in data
+    return data as Crime;
+  }
+
   useEffect(() => {
 
-    axios.get<Crime>(`http://localhost:8081/crimes?primaryType={primaryType}&description={description}`)
-    // add the states into the endpoint to make it dynamic!!
-    // use ?
+    axios.get<Crime>(`http://localhost:8081/crimes`)
     .then((res: any) => {
       crimes.push(res.data);
-      for (let i = 0; i < crimes.length; i++) {
-        console.log(crimes[i]);
-      }
     })
     .then(() => {
       setLatitude(crimes[0][0].latitude)
@@ -107,13 +124,9 @@ const Dropdowns = () => {
     })
   }, [])
 
-  // create a function that handles submit
-  // set the states using onChange and onSubmit (event.target.value)
-
-  // map over the appropriate key in crime object .. conditional rendering
   return (
   <div>
-    <select onChange={(e) => {setPrimaryType(e.target.value)}}>
+    <select onChange={(e) => setPrimaryType(e.target.value.toUpperCase())}>
       <option value="arson">ARSON</option>
       <option value="assault">ASSAULT</option>
       <option value="homicide">HOMICIDE</option>
@@ -280,9 +293,9 @@ const Dropdowns = () => {
       <option value="weapons violation" disabled>WEAPONS VIOLATION</option>
       {crimeInfo['WEAPONS VIOLATION'].map((subcategory: any, key: any) => (
         <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
+        ))}
     </select>
-    <button type='submit'> Search </button>
+    <button onClick = {() => getSearchedCrime(primaryType, description)}> Search </button>
   </div>
   )
 }

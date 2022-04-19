@@ -29,30 +29,9 @@ export interface Crime {
   }
 }
 
-  export function getAllCrimes(): Promise<Crime> {
-    return fetch('https://data.cityofchicago.org/resource/ijzp-q8t2.json')
-    // the JSON body is taken from the response
-      .then(res => res.json())
-      .then(res => {
-              console.log(res);
-              return res as Crime
-      })
-  }
-  let primary_type = 'BATTERY';
-  let description = 'SIMPLE'
-  let year = 2016;
-  // i need to create variables or states for all of the dropdowns
-    // primary type (crime)
-
-    // description (crime subcategory)
-    // dates?
-
-    // pass parameters into function
-  export function getSearchedCrime(): Promise<Crime> {
-    return fetch (`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primary_type}&description=${description}&year=${year}`)
-      .then(res => res.json())
-      .then(res => {
-              console.log(res);
-              return res as Crime
-      })
+  export async function getSearchedCrime(primaryType: string, description: string): Promise<Crime> {
+    const res = await fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}`);
+    const data = await res.json();
+    console.log(data);
+    return data as Crime;
   }
