@@ -15,7 +15,7 @@ app.get('/crimes', (Request, Response) => {
 
   // .then((res) => {
   // console.log('RESPONSE IN SERVER', res);
-  console.log('response in server??', Response)
+  // console.log('response in server??', Response)
     Response.send();
   // })
 });

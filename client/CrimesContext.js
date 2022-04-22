@@ -338,6 +338,7 @@ const crimesMockData = [
 ]
 
 const CrimesContext = createContext(crimesMockData); //setting CrimesContext as the context
+// WE NEED TO USE MY SERVER IF I'M EVER GOING TO SET CONTEXT
 
 const CrimesContextProvider = (props) => { //this acts as the wrapper for the components who must use the same state (essentially as a customized global scope, since all the children and children's children should be able to access this correctly without drilling- fingers crossed)
 

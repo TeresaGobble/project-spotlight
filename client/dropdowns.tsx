@@ -89,7 +89,8 @@ const Dropdowns = () => {
     // set crimes context here ! and pass in data
     console.log('is my data working tho', data);
     console.log('BEFORE', context);
-    setContext(crimes);
+    setContext(data);
+    // THIS WOULD WORK IF WE USED MY SERVERRRRR
     console.log('AFTER', context);
     return data as Crime;
   }
@@ -101,13 +102,11 @@ const Dropdowns = () => {
       crimes.push(res.data);
     })
     .then(() => {
+      // I CAN PROBABLY GET RID OF THIS ENTIRE THEN BLOCK
+
       // setLatitude(crimes[0][0].latitude)
       // setPrimaryType(crimes[0][0].primaryType)
       // setDescription(crimes[0][0].description)
-      // console.log('BEFORE', context);
-      // setContext(crimes);
-      // console.log('AFTER', context);
-      // do i set context here?? ASK CHARLES/CHI
       // setDate(crimes[0][0].date)
     })
     // add another then block for states
