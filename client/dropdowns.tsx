@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios, {AxiosResponse} from 'axios';
-import {Crime} from '../database/queries';
+import {Crime} from './App';
 // import './index.css';
 import { CrimesContext } from "./CrimesContext"; //need the context here (since dropdowns set the crime object content)
-
 // need to set the values here to the crimes context object (like "setState")
 
 const Dropdowns = () => {
@@ -12,22 +11,9 @@ const Dropdowns = () => {
 
   const [latitude, setLatitude] = useState('');
   const [primaryType, setPrimaryType] = useState('');
-  // STATES CANNOT BE GLOBALLY SCOPED
   const [description, setDescription] = useState('');
+  const [context, setContext] = useState(CrimesContext);
   const [date, setDate] = useState('');
-
-  // I CANNOT EXPORT THIS FROM INSIDE OF THIS "CONST DROPDOWNS"
-    // BUT IF I MOVE IT OUTSIDE, I RUN INTO A SCOPING ERROR
-
-  // const getCrime = (primaryType: string, description: string) => {
-  //   axios.get<Crime>(`http://localhost:8081/crimes?primary_type=${primaryType}&description=${description}`)
-  //   .then (res => {
-  //     console.log('YES HI ITS ME', res);
-  //   })
-  //   .catch (err => {
-  //     console.log('LOSER', err);
-  //   })
-  // }
 
   const crimeInfo : any = {
     'ARSON': ['BY EXPLOSIVE', 'BY FIRE', 'AGGRAVATED', 'POSSESSION - EXPLOSIVE / INCENDIARY DEVICE', 'POSSESSION - CHEMICAL / DRY-ICE DEVICE', 'ATTEMPT ARSON'],
@@ -98,11 +84,13 @@ const Dropdowns = () => {
   };
 
   async function getSearchedCrime(primaryType: string, description: string): Promise<Crime> {
-    console.log('meow', primaryType, description);
     const res = await fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}`);
     const data = await res.json();
-    console.log('meow', res);
     // set crimes context here ! and pass in data
+    console.log('is my data working tho', data);
+    console.log('BEFORE', context);
+    setContext(crimes);
+    console.log('AFTER', context);
     return data as Crime;
   }
 
@@ -113,10 +101,14 @@ const Dropdowns = () => {
       crimes.push(res.data);
     })
     .then(() => {
-      setLatitude(crimes[0][0].latitude)
-      setPrimaryType(crimes[0][0].primary_type)
-      setDescription(crimes[0][0].description)
-      setDate(crimes[0][0].date)
+      // setLatitude(crimes[0][0].latitude)
+      // setPrimaryType(crimes[0][0].primaryType)
+      // setDescription(crimes[0][0].description)
+      // console.log('BEFORE', context);
+      // setContext(crimes);
+      // console.log('AFTER', context);
+      // do i set context here?? ASK CHARLES/CHI
+      // setDate(crimes[0][0].date)
     })
     // add another then block for states
     .catch((err: any) => {
