@@ -38,8 +38,8 @@ const SearchTable = () => {
           <DataGrid
             rows={rows}
             columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
+            pageSize={rows.length}
+            rowsPerPageOptions={[rows.length]}
           />
       </div>
     </div>
