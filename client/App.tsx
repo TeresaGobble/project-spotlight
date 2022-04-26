@@ -14,7 +14,7 @@ const App = () => {
         <div className="auth">
           <Authentication />
         </div>
-      <h1>This is the start of the App</h1>
+      <h1>This is the start OF THE REVOLUTIONN</h1>
       <CrimesContextProvider>
         <Dropdowns />
         <SearchTable />
@@ -23,6 +23,7 @@ const App = () => {
           <CrimeMap />
         </div>
       </CrimesContextProvider>
+      <img className="chicago" alt="skyline of Chicago" src="http://localhost:8080/skyline.png"></img>
     </div>
   );
 };

@@ -1,12 +1,56 @@
 body {
-  color: darkblue;
+  background: linear-gradient(90deg, #F5E6D8 0%, #EBC3AA 47.85%, #CDA8A0 100%);
+
   height: fit-content;
+
+
 }
+
+.dropdown {
+position: absolute;
+width: 1336px;
+height: 141px;
+left: calc(50% - 1336px/2);
+top: calc(50% - 141px/2 - 311.5px);
+
+background: #E9E1DF;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+.chicago {
+  height: 384px;
+  width: 1920px;
+  left: -240px;
+  top: 679px;
+  border-radius: 0px;
+}
+
+
+
 
 .map { height: 180px; }
 
 .leaflet-container {
-  height: 1000px
+position: absolute;
+width: 603px;
+height: 669px;
+left: 53px;
+top: 308px;
+filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+border-radius: 10px;
+}
+
+table {
+  position: absolute;
+  width: 603px;
+  height: 669px;
+  left: 700px;
+  top: 308px;
+
+  background: #E5DDDB;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 }
 
 table, th, tr, td {
@@ -24,7 +68,7 @@ tr:hover {
 
 .scrollTable {
   display: block;
-  height: 256px;
+  height: 600px;
   width:fit-content;
   overflow: auto;
 }
