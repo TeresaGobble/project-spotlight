@@ -55,7 +55,7 @@ const Authentication = () => {
       let welcomeMessage: string = "Welcome back " + existingAccountEmail;
       window.alert(welcomeMessage);
     } catch (error: any) {
-      console.log(error.message);
+      window.alert(error.message.slice(17, (error.message.length - 2)));
     }
   };
 
