@@ -36,7 +36,7 @@ const Authentication = () => {
       );
       let newEmail: any = user.user.email;
       setUserEmail(newEmail);
-      window.alert("New user created, welcome to Project Spotlight!");
+      window.alert("Registration complete, welcome to Project Spotlight!");
     } catch (error: any) {
       console.log(error.message);
     }
