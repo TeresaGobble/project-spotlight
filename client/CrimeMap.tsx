@@ -66,14 +66,14 @@ const CrimeMap = () => {
   return (
     <>
       <div>This is from the Map component!</div>
-      <MapContainer center={[41.8757, -87.6243]} zoom={13} scrollWheelZoom={false}>
+<MapContainer center={[41.8757, -87.6243]} zoom={13} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {crimes.map((crime, index) => (
-          <Marker position={[crime.latitude, crime.longitude]}>
+           crime.longitude !== undefined &&  <Marker position={[crime.latitude, crime.longitude]}>
             <Popup>
-              {crime.primary_type}<br /> {crime.description}
+              {crime.primary_type}<br/> {crime.description}
             </Popup>
           </Marker>
         ))}

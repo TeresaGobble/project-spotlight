@@ -35,6 +35,8 @@ export interface Crime {
   }
 }
 
+
+
 const App = () => {
   return (
     //note that CrimesContextProvider acts as a wrapper, and provides a shared global scope to all that are inside it no matter the nested level.
@@ -43,7 +45,7 @@ const App = () => {
         <div className="auth">
           <Authentication />
         </div>
-      <h1>This is the start OF THE REVOLUTIONN</h1>
+      <h1>Crimes</h1>
       <CrimesContextProvider>
         <Dropdowns />
         <SearchTable />

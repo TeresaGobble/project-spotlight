@@ -6,13 +6,14 @@ import { CrimesContext } from "./CrimesContext"; //need the context here (since 
 // need to set the values here to the crimes context object (like "setState")
 
 const Dropdowns = () => {
+  const { setCrimes } = useContext(CrimesContext); //this is already here
 
   const crimes: any[] = [];
 
   const [latitude, setLatitude] = useState('');
   const [primaryType, setPrimaryType] = useState('');
   const [description, setDescription] = useState('');
-  const [context, setContext] = useState(CrimesContext);
+  // const [context, setContext] = useState(CrimesContext);
   const [date, setDate] = useState('');
 
   const crimeInfo : any = {
@@ -86,12 +87,9 @@ const Dropdowns = () => {
   async function getSearchedCrime(primaryType: string, description: string): Promise<Crime> {
     const res = await fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}`);
     const data = await res.json();
-    // set crimes context here ! and pass in data
-    console.log('is my data working tho', data);
-    console.log('BEFORE', context);
-    setContext(data);
-    // THIS WOULD WORK IF WE USED MY SERVERRRRR
-    console.log('AFTER', context);
+    // set crimes here! and pass in data
+    // console.log('is my data working tho', data);
+    setCrimes(data);
     return data as Crime;
   }
 
