@@ -31,21 +31,23 @@ const Footer = () => {
     downloadCSV(csvAssembler(crimes));
   }
 
+  const openChicago = () => {
+    window.open('https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present-Dashboard/5cd6-ry5g', '_blank');
+  }
+
+  const openCreators = () => {
+    window.open('https://www.linkedin.com/in/yellowstrings/', '_blank')
+    // only first one is working
+    window.open('https://www.linkedin.com/in/charles-wilshire/', '_secondTab');
+    window.open('https://www.linkedin.com/in/teresa-gobble/', '_thirdTab');
+  }
+
   return (
     <div className="footer">
       <div>
-        <h5>Project Created By:</h5>
-        <a href='https://www.linkedin.com/in/yellowstrings/'>Anisah Majeed</a>
-        <br></br>
-        <a href='https://www.linkedin.com/in/charles-wilshire/'>Charles Wilshire</a>
-        <br></br>
-        <a href='https://www.linkedin.com/in/teresa-gobble/'>Teresa Gobble</a>
-        <br></br>
-        <a href='https://github.com/Mountain-Everest/project-spotlight'>Our Project</a>
-        <br></br>
-        <a href='https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present-Dashboard/5cd6-ry5g'>City of Chicago Crime Data</a>
-        <br></br>
-        <button onClick={get}>Download Search Results (.csv)</button>
+        <button style={{ padding: '5px', margin: '15px' }} onClick={openCreators}>About the Creators</button>
+        <button style={{ padding: '5px', margin: '15px' }} onClick={openChicago}>City of Chicago Crime Data</button>
+        <button style={{ padding: '5px', margin: '15px' }} onClick={get}>Download Search Results (.csv)</button>
       </div>
     </div>
   )

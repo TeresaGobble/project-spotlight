@@ -8,11 +8,11 @@ const SearchTable = () => {
   const { crimes } = useContext(CrimesContext);
 
   const columns: GridColDef[] = [
-      { field: 'id', headerName: '#', width: 30},
-      { field: 'date', headerName: 'Date', width: 110},
-      { field: 'time', headerName: 'Time', width: 70},
-      { field: 'crime', headerName: 'Crime', width: 130},
-      { field: 'description', headerName: 'Description', width: 200},
+      { field: 'id', headerName: '#', width: 0},
+      { field: 'date', headerName: 'Date', width: 100},
+      { field: 'time', headerName: 'Time', width: 60},
+      { field: 'crime', headerName: 'Crime', width: 110},
+      { field: 'description', headerName: 'Description', width: 180},
       { field: 'street', headerName: 'Street', width: 180}
   ];
 
@@ -21,7 +21,7 @@ const SearchTable = () => {
   crimes.map((e: Crime, i: number) => {
       let date = e.date.slice(5, 7) + '/' + e.date.slice(8, 10) + '/' + e.date.slice(0, 4);
       rows.push({
-          id: i,
+          id: i + 1,
           date: date,
           time: e.date.slice(11, 16),
           crime: e.primary_type,
@@ -32,12 +32,11 @@ const SearchTable = () => {
 
   return (
     <div>
-      <div className="table" style={{height: 400, width: '40%'}}>
+      <div className="table" style={{height: 550, width: '40%'}}>
           <DataGrid
             rows={rows}
             columns={columns}
-            // left: 692px;
-            // top: 302px;
+            style={{top: '302px', left:'692px', height: '550px', width: '685px'}}
             rowsPerPageOptions={[rows.length]}
           />
       </div>

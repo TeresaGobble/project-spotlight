@@ -40,10 +40,10 @@ color: #3D302D;
 .authentication {
   position: absolute;
   width: 129px;
-  height: 50px;
-  left: 1428px;
+  height: 110px;
+  right: 200px;
   /* left: 1259px; */
-  top: 42px;
+  top: 22px;
 
   background: #E9E1DF;
   border-radius: 10px;
@@ -135,6 +135,10 @@ tr:hover {
   height: 92px;
   left: 701px;
   top: 885px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
 
   background: #E5DDDB;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

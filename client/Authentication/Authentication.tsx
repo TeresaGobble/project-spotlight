@@ -94,30 +94,27 @@ const Authentication = () => {
         >
           <Box sx={style}>
             <div className="register">
-              <Typography id="modal-modal-title" variant="h6" component="h2"> Register User </Typography>
+              <Typography id="modal-modal-title" variant="h6" component="h2"> Register </Typography>
               <input
                 placeholder="Email..."
                 onChange={(e) => {
                   setRegisterEmail(e.target.value);
-                  // console.log('registerEmail: ', registerEmail);
                 }}
               />
               <input
                 placeholder="Password..."
                 onChange={(e) => {
                   setRegisterPassword(e.target.value);
-                  // console.log('registerPassword: ', registerPassword);
                 }}
               />
 
               <button onClick={register}> Register</button>
       <div className="login">
-        <h3> Login </h3>
+      <Typography id="modal-modal-title" variant="h6" component="h2"> Already a User? Login Here </Typography>
         <input
           placeholder="Email..."
           onChange={(e) => {
             setLoginEmail(e.target.value);
-            // console.log('loginEmail: ', loginEmail);
           }}
         />
         <input
@@ -125,7 +122,6 @@ const Authentication = () => {
           type="password"
           onChange={(e) => {
             setLoginPassword(e.target.value);
-            // console.log('loginPasword: ', loginPassword);
           }}
         />
 
