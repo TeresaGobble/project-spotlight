@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 // need to ask charles for firebase API key
 import { auth } from "./firebase-config";
+import { Box, Button, Typography, Modal } from '@mui/material';
 
 const Authentication = () => {
 
@@ -18,6 +19,9 @@ const Authentication = () => {
   const [user, setUser] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   onAuthStateChanged(auth, (currentUser: any) => {
     setUser(currentUser);
@@ -30,10 +34,9 @@ const Authentication = () => {
         registerEmail,
         registerPassword
       );
-      // console.log('user being registered: ', user);
       let newEmail: any = user.user.email;
       setUserEmail(newEmail);
-      window.alert("New user created, welcome to Project Spotlight!");
+      window.alert("Registration complete, welcome to Project Spotlight!");
     } catch (error: any) {
       console.log(error.message);
     }
@@ -52,7 +55,7 @@ const Authentication = () => {
       let welcomeMessage: string = "Welcome back " + existingAccountEmail;
       window.alert(welcomeMessage);
     } catch (error: any) {
-      console.log(error.message);
+      window.alert(error.message.slice(17, (error.message.length - 2)));
     }
   };
 
@@ -67,48 +70,72 @@ const Authentication = () => {
     }
   };
 
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #a9a9a9',
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
     <div className="authentication">
       <div>
-        <h3> Register User </h3>
+        <Button onClick={handleOpen}>New to our website? Register here!</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <div className="register">
+              <Typography id="modal-modal-title" variant="h6" component="h2"> Register User </Typography>
+              <input
+                placeholder="Email..."
+                onChange={(e) => {
+                  setRegisterEmail(e.target.value);
+                  // console.log('registerEmail: ', registerEmail);
+                }}
+              />
+              <input
+                placeholder="Password..."
+                onChange={(e) => {
+                  setRegisterPassword(e.target.value);
+                  // console.log('registerPassword: ', registerPassword);
+                }}
+              />
+
+              <button onClick={register}> Register</button>
+      <div className="login">
+        <h3> Login </h3>
         <input
           placeholder="Email..."
           onChange={(e) => {
-            setRegisterEmail(e.target.value);
-            console.log('registerEmail: ', registerEmail);
+            setLoginEmail(e.target.value);
+            // console.log('loginEmail: ', loginEmail);
           }}
         />
         <input
           placeholder="Password..."
+          type="password"
           onChange={(e) => {
-            setRegisterPassword(e.target.value);
-            console.log('registerPassword: ', registerPassword);
+            setLoginPassword(e.target.value);
+            // console.log('loginPasword: ', loginPassword);
           }}
         />
 
-        <button onClick={register}> Create User</button>
+        <button onClick={login}> Login</button>
+      </div>
+            </div>
+          </Box>
+        </Modal>
       </div>
 
-      <div>
-        <h3> Login </h3>
-          <input
-            placeholder="Email..."
-            onChange={(e) => {
-              setLoginEmail(e.target.value);
-              console.log('loginEmail: ', loginEmail);
-            }}
-          />
-          <input
-            placeholder="Password..."
-            type="password"
-            onChange={(e) => {
-              setLoginPassword(e.target.value);
-              console.log('loginPasword: ', loginPassword);
-            }}
-          />
-
-          <button onClick={login}> Login</button>
-      </div>
 
       <h4> User Logged In: {userEmail}</h4>
       {/* why can't I use conditional rendering with TypeScript? */}
