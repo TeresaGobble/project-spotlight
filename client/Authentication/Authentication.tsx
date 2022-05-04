@@ -111,11 +111,6 @@ const Authentication = () => {
               />
 
               <button onClick={register}> Register</button>
-            </div>
-          </Box>
-        </Modal>
-      </div>
-
       <div className="login">
         <h3> Login </h3>
         <input
@@ -136,6 +131,11 @@ const Authentication = () => {
 
         <button onClick={login}> Login</button>
       </div>
+            </div>
+          </Box>
+        </Modal>
+      </div>
+
 
       <h4> User Logged In: {userEmail}</h4>
       {/* why can't I use conditional rendering with TypeScript? */}
