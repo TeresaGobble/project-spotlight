@@ -40,7 +40,7 @@ const Footer = () => {
         <br></br>
         <a href='https://www.linkedin.com/in/charles-wilshire/'>Charles Wilshire</a>
         <br></br>
-        <a href='https://www.linkedin.com/in/teresa-gobble/'>Teresea Gobble</a>
+        <a href='https://www.linkedin.com/in/teresa-gobble/'>Teresa Gobble</a>
         <br></br>
         <a href='https://github.com/Mountain-Everest/project-spotlight'>Our Project</a>
         <br></br>
