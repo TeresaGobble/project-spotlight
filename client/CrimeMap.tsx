@@ -65,7 +65,6 @@ const CrimeMap = () => {
 
   return (
     <>
-      <div>This is from the Map component!</div>
 <MapContainer center={[41.8757, -87.6243]} zoom={13} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

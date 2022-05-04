@@ -41,13 +41,14 @@ const App = () => {
   return (
     //note that CrimesContextProvider acts as a wrapper, and provides a shared global scope to all that are inside it no matter the nested level.
     <div id="app-root">
-      <h1>Project Spotlight</h1>
+      <h1 className="title" >Project Spotlight</h1>
         <div className="auth">
           <Authentication />
         </div>
-      <h1>Crimes</h1>
       <CrimesContextProvider>
+        <div className="dropdown">
         <Dropdowns />
+        </div>
         <SearchTable />
         <Footer />
         <div className="map">

@@ -21027,8 +21027,7 @@ const SearchTable = () => {
 
   return (
     <div>
-      <h2>SearchTable component begins here</h2>
-      <h4>{searchResults.length} crimes were returned from your search.</h4>
+      {/* <h4>{searchResults.length} crimes were returned from your search.</h4> */}
       <div className="table">
         <table>
             {/* TODO: Snap top row to stay visible while scrolling down */}

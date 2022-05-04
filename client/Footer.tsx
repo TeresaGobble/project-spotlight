@@ -21083,8 +21083,7 @@ const searchResults = [
   }
 
   return (
-    <div>
-      <h2>This is the Footer component</h2>
+    <div className="footer">
       <div>
         <h5>Project Created By:</h5>
         <a href='https://www.linkedin.com/in/yellowstrings/'>Anisah Majeed</a>

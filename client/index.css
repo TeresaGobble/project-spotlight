@@ -1,33 +1,85 @@
 body {
   background: linear-gradient(90deg, #F5E6D8 0%, #EBC3AA 47.85%, #CDA8A0 100%);
-
   height: fit-content;
+}
 
+.title {
+position: absolute;
+width: 406px;
+height: 59px;
+left: 546px;
+top: 30px;
+/* top: 46px; */
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 400;
+font-size: 48px;
+line-height: 59px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+text-align: center;
+color: #3D302D;
 
 }
+
+/* .binoculars {
+  position: absolute;
+  width: 75px;
+  height: 74px;
+  left: 460px;
+  top: 40px;
+
+  background: url(.png); NEED TO GET IMAGE LOCATION
+} */
+
+/* AUTHENTICATION (has been pushed to the side for now- is adding to modal pop-out */
+
+.authentication {
+  position: absolute;
+  width: 129px;
+  height: 50px;
+  left: 1428px;
+  /* left: 1259px; */
+  top: 42px;
+
+  background: #E9E1DF;
+  border-radius: 10px;
+}
+
+/* DROPDOWNS - QUESTION: will this styling be replaced with the dropdown modal from material-UI? If so don't spend any time on this */
 
 .dropdown {
 position: absolute;
 width: 1336px;
 height: 141px;
-left: calc(50% - 1336px/2);
-top: calc(50% - 141px/2 - 311.5px);
+left: 48px;
+top: 140px;
+/* left: calc(50% - 1336px/2);
+top: calc(50% - 141px/2 - 311.5px); */
 
 background: #E9E1DF;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 10px;
 }
 
-.chicago {
-  height: 384px;
-  width: 1920px;
-  left: -240px;
-  top: 679px;
-  border-radius: 0px;
+.dropdown-selections {
+  position: relative;
+  width: 234px;
+  height: 273px;
 }
 
+/* .dropdown-set-primary-type {
+  position: absolute;
+  width: 250px;
+  height: 273px;
+  left: 305px;
+  top: 146px;
+} */
 
-
+/* MAP */
 
 .map { height: 180px; }
 
@@ -41,10 +93,12 @@ filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 border-radius: 10px;
 }
 
+/* SEARCH TABLE */
+
 table {
   position: absolute;
   width: 603px;
-  height: 669px;
+  height: 600px;
   left: 700px;
   top: 308px;
 
@@ -68,7 +122,66 @@ tr:hover {
 
 .scrollTable {
   display: block;
-  height: 600px;
+  height: 575px;
   width:fit-content;
   overflow: auto;
+}
+
+/* FOOTER BODY */
+
+.footer {
+  position: absolute;
+  width: 680px;
+  height: 92px;
+  left: 701px;
+  top: 885px;
+
+  background: #E5DDDB;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+/* FOOTER LINKS */
+
+.footer-csv-download {
+  position: absolute;
+  width: 178px;
+  height: 44px;
+  left: 741px;
+  top: 909px;
+
+  background: #C4C4C4;
+  border-radius: 10px;
+}
+
+.footer-data-source {
+  position: absolute;
+  width: 179px;
+  height: 44px;
+  left: 960px;
+  top: 909px;
+
+  background: #C4C4C4;
+  border-radius: 10px;
+}
+
+.footer-everest-github {
+  position: absolute;
+  width: 179px;
+  height: 44px;
+  left: 1181px;
+  top: 909px;
+
+  background: #C4C4C4;
+  border-radius: 10px;
+}
+
+/* BACKGROUND IMAGE */
+
+.chicago {
+  height: 384px;
+  width: 1920px;
+  left: -240px;
+  top: 679px;
+  border-radius: 0px;
 }

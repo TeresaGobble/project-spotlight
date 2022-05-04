@@ -68,8 +68,7 @@ const Authentication = () => {
   };
 
   return (
-    <div>
-      This is the Authentication component.
+    <div className="authentication">
       <div>
         <h3> Register User </h3>
         <input

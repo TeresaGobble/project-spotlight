@@ -114,8 +114,8 @@ const Dropdowns = () => {
   }, [])
 
   return (
-  <div>
-    <select onChange={(e) => setPrimaryType(e.target.value.toUpperCase())}>
+  <div className="dropdown-selections">
+    <select className="dropdown-set-primary-type" onChange={(e) => setPrimaryType(e.target.value.toUpperCase())}>
       <option value="arson">ARSON</option>
       <option value="assault">ASSAULT</option>
       <option value="homicide">HOMICIDE</option>
