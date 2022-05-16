@@ -1,12 +1,9 @@
 import React, { Component, useContext } from "react";
+import geocodeToken from "../geocode-config"
 
 // import {default as a} from "a.json";
 // a.primaryMain
 
-// declare module "*.json" {
-//   const value: any;
-//   export default value;
-// }
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { CrimesContext } from "./CrimesContext.js"; //typescript error
@@ -66,7 +63,7 @@ const CrimeMap = () => {
 
   return (
     <>
-<MapContainer center={[41.8757, -87.6243]} zoom={13} scrollWheelZoom={false}>
+<MapContainer center={[-97.82796159,30.166248643]} zoom={13} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
