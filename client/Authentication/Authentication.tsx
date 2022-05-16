@@ -54,6 +54,7 @@ const Authentication = () => {
       setUserEmail(existingAccountEmail);
       let welcomeMessage: string = "Welcome back " + existingAccountEmail;
       window.alert(welcomeMessage);
+      // toggle register button (off)
     } catch (error: any) {
       window.alert(error.message.slice(17, (error.message.length - 2)));
     }
@@ -65,6 +66,7 @@ const Authentication = () => {
       // console.log('user being logged out: ', user);
       window.alert("Successfully logged out");
       setUserEmail("");
+      // toggle register button (on)
     } catch (error: any) {
       console.log(error.message);
     }
@@ -133,10 +135,8 @@ const Authentication = () => {
       </div>
 
 
-      <h4> User Logged In: {userEmail}</h4>
-      {/* why can't I use conditional rendering with TypeScript? */}
-      {/* {user?.email} */}
-
+      <h4> User Logged In:</h4>
+      {userEmail !== undefined && <div>{userEmail}</div>}
       <button onClick={logout}> Sign Out </button>
     </div>
   )

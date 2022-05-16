@@ -84,6 +84,13 @@ const Dropdowns = () => {
     'WEAPONS VIOLATION': ['UNLAWFUL USE - HANDGUN', 'UNLAWFUL USE - OTHER FIREARM', 'UNLAWFUL USE - OTHER DANGEROUS WEAPON', 'UNLAWFUL SALE - HANDGUN', 'UNLAWFUL SALE - OTHER FIREARM', 'UNLAWFUL SALE - DELIVERY OF FIREARM AT SCHOOL', 'UNLAWFUL POSSESSION - HANDGUN', 'UNLAWFUL POSSESSION - OTHER FIREARM', 'UNLAWFUL POSSESSION - AMMUNITION', 'REGISTER OF SALES BY DEALER', 'DEFACE IDENTIFICATION MARKS OF FIREARM', 'POSSESS FIREARM / AMMUNITION - NO FOID CARD', 'SALE OF METAL PIERCING BULLETS', 'USE OF METAL PIERCING BULLETS', 'RECKLESS FIREARM DISCHARGE', 'UNLAWFUL USE / SALE OF AIR RIFLE']
   };
 
+  // input is an address, or zipcode - what is most likely entered by user?
+  // zipcode (approx 60)
+    // range is zipcode + 30 ish longitude AND -30 longitude
+    // range is zipcode + 30 ish latitude AND -3- latitude
+
+    // all crimes with lats of +- the above, AND +- longs of the above
+
   async function getSearchedCrime(primaryType: string, description: string): Promise<Crime> {
     const res = await fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}`);
     const data = await res.json();

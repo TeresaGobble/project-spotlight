@@ -1,6 +1,13 @@
 body {
-  background: linear-gradient(90deg, #F5E6D8 0%, #EBC3AA 47.85%, #CDA8A0 100%);
-  height: fit-content;
+  background-image: linear-gradient(467deg, rgba(307, 220, 209, .85), rgba(266, 195, 170, .8), rgba(207, 167, 157, 0.85)), url(https://i.imgur.com/FfRdiH3.jpg);
+  background-size: cover;
+}
+
+.logo {
+  height: 71px;
+  top: 51px;
+  left: 465px;
+  position: absolute;
 }
 
 .title {
@@ -180,12 +187,9 @@ tr:hover {
   border-radius: 10px;
 }
 
-/* BACKGROUND IMAGE */
-
-.chicago {
-  height: 384px;
-  width: 1920px;
-  left: -240px;
-  top: 679px;
-  border-radius: 0px;
+.note {
+  left: 55px;
+  top: 985px;
+  position: absolute;
+  opacity: 0.89;
 }

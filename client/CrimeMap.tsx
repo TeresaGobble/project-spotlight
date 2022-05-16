@@ -57,6 +57,7 @@ const CrimeMap = () => {
   //   };
   //   crimesArr.push(crimeObj);
   // }
+  // if (long < x && long > y) {}
 
 
   // console.log("crimesArr", crimesArr[0].description)

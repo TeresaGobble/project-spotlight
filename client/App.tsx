@@ -6,6 +6,7 @@ import { CrimesContextProvider } from "./CrimesContext"; // lint error says this
 import Authentication from "./Authentication/Authentication";
 import Footer from "./Footer";
 
+
 export interface Crime {
   id: string,
   case_number: string,
@@ -41,6 +42,7 @@ const App = () => {
   return (
     //note that CrimesContextProvider acts as a wrapper, and provides a shared global scope to all that are inside it no matter the nested level.
     <div id="app-root">
+      <img className="logo" alt="binoculars" src="https://i.imgur.com/22s0voU.png"></img>
       <h1 className="title" >Project Spotlight</h1>
         <div className="auth">
           <Authentication />
@@ -55,7 +57,7 @@ const App = () => {
           <CrimeMap />
         </div>
       </CrimesContextProvider>
-      <img className="chicago" alt="skyline of Chicago" src="http://localhost:8080/skyline.png"></img>
+      <div className="note" >Note: if a crime does not specify a location, it will not render on the map.</div>
     </div>
   );
 };

@@ -2,7 +2,7 @@
 package-lock.json
 
 #firebase-config
-firebase-config.js
+firebase-config.ts
 
 # Logs
 logs
