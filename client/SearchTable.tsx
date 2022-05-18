@@ -1,7 +1,7 @@
 import React, { Component, useContext } from "react";
 import { DataGrid, GridColDef, gridRowsLoadingSelector, GridValueGetterParams } from "@mui/x-data-grid";
 import { CrimesContext } from "./CrimesContext.js";
-import { Crime } from "../database/queries";
+import { Crime } from "./App";
 
 const SearchTable = () => {
 

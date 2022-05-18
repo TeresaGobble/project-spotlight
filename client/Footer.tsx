@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { CrimesContext } from "./CrimesContext.js";
-import { Crime } from "../database/queries";
+
+import { Crime } from "./App";
 import { Box, Button, Typography, Modal } from '@mui/material';
 
 const Footer = () => {
