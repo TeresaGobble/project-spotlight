@@ -1,19 +1,17 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
+import geocodeToken from "../geocode-config"
 
 // import {default as a} from "a.json";
 // a.primaryMain
 
-// declare module "*.json" {
-//   const value: any;
-//   export default value;
-// }
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { CrimesContext } from "./CrimesContext.js"; //typescript error
 // const reactMap = require()
 
 // import crimes from './../data/crimes.json'
 // import * as crimes from './../data/crimes.json'
-const crimes = require('./../data/crimes.json')
+const crimes = require('../data/crimes.json')
 //import "leaflet/dist/leaflet.css"
 
 const leaflet = require('./../node_modules/leaflet/dist/leaflet')
@@ -33,9 +31,9 @@ interface CrimeSample {
 }
 
 const CrimeMap = () => {
+  const { crimes } = useContext(CrimesContext) // this is how we grab the context for rendering
   //array containing crimes that fit the user's entered criteria
 
-  console.log("The crimes Data", crimes.features[0].properties.latitude)
 
   // locations of each piece of data in the object:
   // const latitude: string = crimes.features[0].properties.latitude;
@@ -45,31 +43,34 @@ const CrimeMap = () => {
 
   // console.log('latitude, longitude, description', latitude, longitude, description)
 
-  const crimesArr: CrimeSample[] = [];
-  for (let i = 0; i < crimes.features.length; i++) {
-    const crimeObj: CrimeSample = {
-      latitude: +crimes.features[i].properties.latitude,
-      longitude: +crimes.features[i].properties.longitude,
-      primaryType: crimes.features[i].properties.primary_type,
-      description: crimes.features[i].properties.description,
-    };
-    crimesArr.push(crimeObj);
-  }
 
-  console.log("crimesArr", crimesArr[0].description)
+  // const crimesArr: CrimeSample[] = [];
+  // for (let i = 0; i < crimes.features.length; i++) {
+  //   const crimeObj: CrimeSample = {
+  //     latitude: +crimes.features[i].properties.latitude,
+  //     longitude: +crimes.features[i].properties.longitude,
+  //     primaryType: crimes.features[i].properties.primary_type,
+  //     description: crimes.features[i].properties.description,
+  //   };
+  //   crimesArr.push(crimeObj);
+  // }
+  // if (long < x && long > y) {}
+
+
+  // console.log("crimesArr", crimesArr[0].description)
   // crimes.features is an array of objects, each representing a crime
   // const position: Array<number> | undefined = [51.505, -0.09] <--- need to make this dynamic
+
   return (
     <>
-      <div>This is from the Map component! {crimesArr[0].latitude} {crimesArr[0].longitude} {crimesArr.length}</div>
-      <MapContainer center={[41.8757, -87.6243]} zoom={13} scrollWheelZoom={false}>
+<MapContainer center={[-97.82796159,30.166248643]} zoom={13} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {crimesArr.map((crime, index) => (
-          <Marker position={[crime.latitude, crime.longitude]}>
+        {crimes.map((crime, index) => (
+           crime.longitude !== undefined &&  <Marker position={[crime.latitude, crime.longitude]}>
             <Popup>
-              {crime.primaryType}<br /> {crime.description}
+              {crime.primary_type}<br/> {crime.description}
             </Popup>
           </Marker>
         ))}
@@ -82,16 +83,29 @@ const CrimeMap = () => {
 export default CrimeMap;
 
 // {crimesArr.map((crime) => {
-//   <Marker position={[crime.latitude, crime.longitude]}>
-//     <Popup>
-//       {crime.primaryType}<br/> {crime.primaryType}
-//     </Popup>
-//   </Marker>
-// })}
+  //   <Marker position={[crime.latitude, crime.longitude]}>
+  //     <Popup>
+  //       {crime.primaryType}<br/> {crime.primaryType}
+  //     </Popup>
+  //   </Marker>
+  // })}
 
-// {crimesArr.map((crime: any, key) => {
-//   <Marker key={key} position={[crime.latitude, crime.longitude]}>
-//     {/* <Popup>
-//       {crime.primaryType}<br/>
-//     </Popup> */}
-//   </Marker>
+  // {crimesArr.map((crime: any, key) => {
+    //   <Marker key={key} position={[crime.latitude, crime.longitude]}>
+    //     {/* <Popup>
+    //       {crime.primaryType}<br/>
+  //     </Popup> */}
+  //   </Marker>
+
+
+  //from the sample json
+  // const crimesArr: CrimeSample[] = [];
+  // for (let i = 0; i < crimes.features.length; i++) {
+  //   const crimeObj: CrimeSample = {
+  //     latitude: +crimes.features[i].properties.latitude,
+  //     longitude: +crimes.features[i].properties.longitude,
+  //     primaryType: crimes.features[i].properties.primary_type,
+  //     description: crimes.features[i].properties.description,
+  //   };
+  //   crimesArr.push(crimeObj);
+  // }
