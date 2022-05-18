@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { CrimesContext } from "./CrimesContext.js";
-import { Crime } from "../database/queries";
+import { Crime } from "./App";
 
 const Footer = () => {
 

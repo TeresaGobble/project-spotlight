@@ -291,6 +291,7 @@ const Dropdowns = () => {
         <option value={subcategory} key={key}> {subcategory} </option>
         ))}
     </select>
+    <button className="dropdown-limitations" onMouseOver = {() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')} onMouseOut = {() => window.alert('see you later alligator!')}> ? </button>
     <button onClick = {() => getSearchedCrime(primaryType, description)}> Search </button>
   </div>
   )
