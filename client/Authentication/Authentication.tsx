@@ -37,6 +37,9 @@ const Authentication = () => {
       let newEmail: any = user.user.email;
       setUserEmail(newEmail);
       window.alert("Registration complete, welcome to Project Spotlight!");
+      // hide registration/login modal
+      document.getElementById("modalDiv").style.display = "none";
+      document.getElementById("login").style.display = "block";
     } catch (error: any) {
       console.log(error.message);
     }
@@ -54,7 +57,8 @@ const Authentication = () => {
       setUserEmail(existingAccountEmail);
       let welcomeMessage: string = "Welcome back " + existingAccountEmail;
       window.alert(welcomeMessage);
-      // toggle register button (off)
+      // hide registration/login modal
+      document.getElementById("modalDiv").style.display = "none";
     } catch (error: any) {
       window.alert(error.message.slice(17, (error.message.length - 2)));
     }
@@ -66,7 +70,8 @@ const Authentication = () => {
       // console.log('user being logged out: ', user);
       window.alert("Successfully logged out");
       setUserEmail("");
-      // toggle register button (on)
+      // un-hide registration/login modal
+      document.getElementById("modalDiv").style.display = "block";
     } catch (error: any) {
       console.log(error.message);
     }
@@ -86,8 +91,8 @@ const Authentication = () => {
 
   return (
     <div className="authentication">
-      <div>
-        <Button onClick={handleOpen}>New to our website? Register here!</Button>
+      <div id="modalDiv">
+        <Button  onClick={handleOpen}>New to our website? Register here!</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -112,7 +117,7 @@ const Authentication = () => {
 
               <button onClick={register}> Register</button>
       <div className="login">
-      <Typography id="modal-modal-title" variant="h6" component="h2"> Already a User? Login Here </Typography>
+      <Typography id="modal-modal-title" variant="h6" component="h2"> Already a User? Login </Typography>
         <input
           placeholder="Email..."
           onChange={(e) => {
@@ -134,10 +139,18 @@ const Authentication = () => {
         </Modal>
       </div>
 
+      <div id="login" style={{
+        position: "absolute",
+        width: "129px",
+        wordWrap: "break-word",
+        height: "110px",
+        padding: "3px"
+        }}>
 
       <h4> User Logged In:</h4>
       {userEmail !== undefined && <div>{userEmail}</div>}
       <button onClick={logout}> Sign Out </button>
+      </div>
     </div>
   )
 }

@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { CrimesContext } from "./CrimesContext.js";
 import { Crime } from "../database/queries";
+import { Box, Button, Typography, Modal } from '@mui/material';
 
 const Footer = () => {
 
@@ -35,20 +36,70 @@ const Footer = () => {
     window.open('https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present-Dashboard/5cd6-ry5g', '_blank');
   }
 
-  const openCreators = () => {
-    window.open('https://www.linkedin.com/in/yellowstrings/', '_blank')
-    // only first one is working
-    window.open('https://www.linkedin.com/in/charles-wilshire/', '_secondTab');
-    window.open('https://www.linkedin.com/in/teresa-gobble/', '_thirdTab');
+  const openAnisah = () => {
+    window.open('https://www.linkedin.com/in/yellowstrings/');
   }
+
+  const openCharles = () => {
+    window.open('https://www.linkedin.com/in/charles-wilshire/');
+  }
+
+  const openTeresa = () => {
+    window.open('https://www.linkedin.com/in/teresa-gobble/');
+  }
+
+  // const showDropdown = () => {
+  //   document.getElementById("dd").style.display="block";
+  // }
+
+  // const hideDropdown = () => {
+  //   document.getElementById("dd").style.display="none";
+  // }
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #a9a9a9',
+    boxShadow: 24,
+    p: 4,
+  };
 
   return (
     <div className="footer">
-      <div>
-        <button style={{ padding: '5px', margin: '15px' }} onClick={openCreators}>About the Creators</button>
+        {/* <button style={{ padding: '5px', margin: '15px' }} onMouseEnter={showDropdown} >About the Creators</button>
+        <div id="dd" style={{display: "none", position: "relative", backgroundColor: "#F1F1F1", minWidth: "126px", zIndex: "1", boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)"}}>
+          <a href="https://www.linkedin.com/in/yellowstrings/" style={{border: "black 3px"}}>Anisah Majeed</a>
+          <br></br>
+          <a href="https://www.linkedin.com/in/charles-wilshire/">Charles Wilshire</a>
+          <br></br>
+          <a href="https://www.linkedin.com/in/teresa-gobble/">Teresa Gobble</a>
+        </div> */}
+        <div>
+          <button style={{ padding: '5px', margin: '15px' }} onClick={handleOpen}>About The Creators</button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+          >
+            <Box sx={style}>
+              <div>
+                <Button size="large" id="modal-modal-title" component="h1" onClick={openAnisah}>🐈 Anisah Majeed</Button>
+                <br></br>
+                <Button size="large" id="modal-modal-title" component="h1" onClick={openCharles}>💩 Charles Wilshire</Button>
+                <br></br>
+                <Button size="large" id="modal-modal-title" component="h1" onClick={openTeresa}>🦜 Teresa Gobble</Button>
+              </div>
+            </Box>
+          </Modal>
+        </div>
         <button style={{ padding: '5px', margin: '15px' }} onClick={openChicago}>City of Chicago Crime Data</button>
         <button style={{ padding: '5px', margin: '15px' }} onClick={get}>Download Search Results (.csv)</button>
-      </div>
     </div>
   )
 }
