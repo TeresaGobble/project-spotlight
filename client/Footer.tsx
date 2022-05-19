@@ -83,18 +83,18 @@ const Footer = () => {
           <a href="https://www.linkedin.com/in/teresa-gobble/">Teresa Gobble</a>
         </div> */}
         <div>
-          <button style={{ padding: '5px', margin: '15px' }} onClick={handleOpen}>About The Creators</button>
+          <button style={{ padding: '5px', margin: '15px' }} onClick={handleOpen}>About the Creators</button>
           <Modal
             open={open}
             onClose={handleClose}
           >
             <Box sx={style}>
               <div>
-                <Button size="large" id="modal-modal-title" component="h1" onClick={openAnisah}>🐈 Anisah Majeed</Button>
+                <Button size="large" id="modal-modal-title" component="h1" onClick={openAnisah}>Anisah Majeed</Button>
                 <br></br>
-                <Button size="large" id="modal-modal-title" component="h1" onClick={openCharles}>💩 Charles Wilshire</Button>
+                <Button size="large" id="modal-modal-title" component="h1" onClick={openCharles}>Charles Wilshire</Button>
                 <br></br>
-                <Button size="large" id="modal-modal-title" component="h1" onClick={openTeresa}>🦜 Teresa Gobble</Button>
+                <Button size="large" id="modal-modal-title" component="h1" onClick={openTeresa}>Teresa Gobble</Button>
               </div>
             </Box>
           </Modal>

@@ -63,7 +63,7 @@ const CrimeMap = () => {
 
   return (
     <>
-<MapContainer center={[30.1662,-97.8279]} zoom={13} scrollWheelZoom={false}>
+<MapContainer center={[41.8757, -87.6243]} zoom={11} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
