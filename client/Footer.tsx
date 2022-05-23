@@ -44,11 +44,9 @@ const Footer = () => {
 
   return (
     <div className="footer">
-      <div>
-        <button style={{ padding: '5px', margin: '15px' }} onClick={openCreators}>About the Creators</button>
-        <button style={{ padding: '5px', margin: '15px' }} onClick={openChicago}>City of Chicago Crime Data</button>
-        <button style={{ padding: '5px', margin: '15px' }} onClick={get}>Download Search Results (.csv)</button>
-      </div>
+      <button style={{ padding: '5px', margin: '15px' }} onClick={openCreators}>About the Creators</button>
+      <button style={{ padding: '5px', margin: '15px' }} onClick={openChicago}>City of Chicago Crime Data</button>
+      <button style={{ padding: '5px', margin: '15px' }} onClick={get}>Download Search Results (.csv)</button>
     </div>
   )
 }

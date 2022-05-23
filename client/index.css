@@ -1,3 +1,8 @@
+/* This ensures that all the items have padding and border included in their width and height https://www.w3schools.com/css/css3_box-sizing.asp */
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-image: linear-gradient(467deg, rgba(307, 220, 209, .85), rgba(266, 195, 170, .8), rgba(207, 167, 157, 0.85)), url(https://i.imgur.com/FfRdiH3.jpg);
   background-size: cover;
@@ -58,12 +63,17 @@ color: #3D302D;
 
 /* DROPDOWNS - QUESTION: will this styling be replaced with the dropdown modal from material-UI? If so don't spend any time on this */
 
+.autocomplete-container {
+  position: relative;
+}
+
 .dropdown {
 position: absolute;
 width: 1336px;
 height: 141px;
 left: 48px;
 top: 140px;
+padding: 0 40px;
 /* left: calc(50% - 1336px/2);
 top: calc(50% - 141px/2 - 311.5px); */
 
@@ -73,9 +83,24 @@ border-radius: 10px;
 }
 
 .dropdown-selections {
-  position: relative;
-  width: 234px;
-  height: 273px;
+  /* position: relative; */
+  /* width: 234px; */
+  height: inherit;
+  align-items: center;
+  display: grid;
+  column-gap: 40px;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+
+}
+
+/* this next piece will override the dropdown selections ALL (*) IMMEDIATE (>) children and apply this styling, which should make adding a date dropdown quick and easy hopefully*/
+.dropdown-selections > * {
+  width: 100%;
+  height: 56px;
+  border-radius: 10px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.07));
+  grid-row: 1;
+  border: none;
 }
 
 /* .dropdown-set-primary-type {
@@ -154,7 +179,20 @@ tr:hover {
 
 /* FOOTER LINKS */
 
-.footer-csv-download {
+.footer > * {
+  /* position: absolute; */
+  width: 178px;
+  height: 44px;
+  /* left: 741px;
+  top: 909px; */
+
+  background: #C4C4C4;
+  border-radius: 10px;
+  border: none;
+
+}
+
+/* .footer-csv-download {
   position: absolute;
   width: 178px;
   height: 44px;
@@ -185,7 +223,7 @@ tr:hover {
 
   background: #C4C4C4;
   border-radius: 10px;
-}
+} */
 
 .note {
   left: 55px;

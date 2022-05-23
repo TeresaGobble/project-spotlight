@@ -6,7 +6,6 @@ import { CrimesContextProvider } from "./CrimesContext"; // lint error says this
 import Authentication from "./Authentication/Authentication";
 import Footer from "./Footer";
 
-
 export interface Crime {
   id: string,
   case_number: string,

@@ -1,22 +1,25 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios, {AxiosResponse} from 'axios';
-import {Crime} from './App';
+import axios, { AxiosResponse } from 'axios';
+import { Crime } from './App';
 // import './index.css';
 import { CrimesContext } from "./CrimesContext"; //need the context here (since dropdowns set the crime object content)
 // need to set the values here to the crimes context object (like "setState")
+import geocodeToken from "../geocode-config"
 
 const Dropdowns = () => {
   const { setCrimes } = useContext(CrimesContext); //this is already here
 
   const crimes: any[] = [];
 
-  const [latitude, setLatitude] = useState('');
+  // const [latitude, setLatitude] = useState(''); // <---- commented out to ensure clarity- we need to search by location
+  const [location, setLocation] = useState('');
   const [primaryType, setPrimaryType] = useState('');
   const [description, setDescription] = useState('');
   // const [context, setContext] = useState(CrimesContext);
+  const [searchRadius, setSearchRadius] = useState('');
   const [date, setDate] = useState('');
 
-  const crimeInfo : any = {
+  const crimeInfo: any = {
     'ARSON': ['BY EXPLOSIVE', 'BY FIRE', 'AGGRAVATED', 'POSSESSION - EXPLOSIVE / INCENDIARY DEVICE', 'POSSESSION - CHEMICAL / DRY-ICE DEVICE', 'ATTEMPT ARSON'],
 
     'ASSAULT': ['AGGRAVATED - HANDGUN', 'AGGRAVATED - OTHER FIREARM', 'AGGRAVATED - KNIFE / CUTTING INSTRUMENT', 'AGGRAVATED - OTHER DANGEROUS WEAPON', 'PROTECTED EMPLOYEE - HANDS, FISTS, FEET, NO / MINOR INJURY', 'AGGRAVATED POLICE OFFICER - HANDGUN', 'AGGRAVATED POLICE OFFICER - OTHER FIREARM', 'AGGRAVATED POLICE OFFICER - KNIFE / CUTTING INSTRUMENT', 'AGGRAVATED POLICE OFFICER - OTHER DANGEROUS WEAPON', 'AGGRAVATED POLICE OFFICER - HANDS, FISTS, FEET, NO INJURY', 'AGGRAVATED PROTECTED EMPLOYEE - HANDGUN', 'AGGRAVATED PROTECTED EMPLOYEE - OTHER FIREARM', 'AGGRAVATED PROTECTED EMPLOYEE - KNIFE / CUTTING INSTRUMENT', 'AGGRAVATED PROTECTED EMPLOYEE - OTHER DANGEROUS WEAPON', 'SIMPLE'],
@@ -84,18 +87,43 @@ const Dropdowns = () => {
     'WEAPONS VIOLATION': ['UNLAWFUL USE - HANDGUN', 'UNLAWFUL USE - OTHER FIREARM', 'UNLAWFUL USE - OTHER DANGEROUS WEAPON', 'UNLAWFUL SALE - HANDGUN', 'UNLAWFUL SALE - OTHER FIREARM', 'UNLAWFUL SALE - DELIVERY OF FIREARM AT SCHOOL', 'UNLAWFUL POSSESSION - HANDGUN', 'UNLAWFUL POSSESSION - OTHER FIREARM', 'UNLAWFUL POSSESSION - AMMUNITION', 'REGISTER OF SALES BY DEALER', 'DEFACE IDENTIFICATION MARKS OF FIREARM', 'POSSESS FIREARM / AMMUNITION - NO FOID CARD', 'SALE OF METAL PIERCING BULLETS', 'USE OF METAL PIERCING BULLETS', 'RECKLESS FIREARM DISCHARGE', 'UNLAWFUL USE / SALE OF AIR RIFLE']
   };
 
-  // input is an address, or zipcode - what is most likely entered by user?
-  // zipcode (approx 60)
-    // range is zipcode + 30 ish longitude AND -30 longitude
-    // range is zipcode + 30 ish latitude AND -3- latitude
+  const theNewToken = '0d5ba9fc606c453cb6c3bb3d7a47b2dc'
+  async function getSearchedCrime(primaryType: string, description: string, location: string, searchRadius: string): Promise<Crime> {  // add a searchRadius and a location (array with long and lat) to this!
+    // TO-DO: make a fetch request to the geocoding API
+    let longitude = -87.6243;
+    let latitude = 41.8757;
+    let easternmostLongitude = longitude + 0.015 * parseInt(searchRadius);
+    let westernmostLongitude = longitude - 0.015 * parseInt(searchRadius);
+    let northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
+    let southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
 
-    // all crimes with lats of +- the above, AND +- longs of the above
+    var requestOptions = {
+      method: 'GET',
+    };
+    fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${location}+Chicago+IL&apiKey=${geocodeToken.geocodeToken}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {// need to check shape of result!
+        console.log('THE RESULT OF CALLING THE GEOAPIFY', result.features[0].properties.lon, result.features[0].properties.lon)
 
-  async function getSearchedCrime(primaryType: string, description: string): Promise<Crime> {
-    const res = await fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}`);
+        longitude = result.features[0].properties.lon;
+        latitude = result.features[0].properties.lat;
+
+        easternmostLongitude = longitude + 0.015 * parseInt(searchRadius);
+        westernmostLongitude = longitude - 0.015 * parseInt(searchRadius);
+        northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
+        southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
+
+        //  console.log("the various coordinates after call", easternmost, westernmost, northernmost, southernmost)
+      })
+      .catch(error => console.log('error', error));
+
+    // add the longitude and the latitude returned from the geocode API to the fetch request below:
+    const res = await fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${southernmostLatitude} AND latitude <= ${northernmostLatitude} AND longitude >= ${westernmostLongitude} AND longitude <= ${easternmostLongitude}`);
     const data = await res.json();
-    // set crimes here! and pass in data
-    // console.log('is my data working tho', data);
+    // &$where longitude >{longitude}& latitude >${latitude}
+    // .then filter by searchRadius for all long and lats that fit that radius (need to figure out how many miles are in coordinate units)
+    // THEN set the resulting filtered data below
+    console.log(data)
     setCrimes(data);
     return data as Crime;
   }
@@ -103,196 +131,207 @@ const Dropdowns = () => {
   useEffect(() => {
 
     axios.get<Crime>(`http://localhost:8081/crimes`)
-    .then((res: any) => {
-      crimes.push(res.data);
-    })
-    .then(() => {
-      // I CAN PROBABLY GET RID OF THIS ENTIRE THEN BLOCK
+      .then((res: any) => {
+        crimes.push(res.data);
+      })
+      .then(() => {
+        // I CAN PROBABLY GET RID OF THIS ENTIRE THEN BLOCK
 
-      // setLatitude(crimes[0][0].latitude)
-      // setPrimaryType(crimes[0][0].primaryType)
-      // setDescription(crimes[0][0].description)
-      // setDate(crimes[0][0].date)
-    })
-    // add another then block for states
-    .catch((err: any) => {
-      console.log('U FAILED', err);
-    })
+        // setLatitude(crimes[0][0].latitude)
+        // setPrimaryType(crimes[0][0].primaryType)
+        // setDescription(crimes[0][0].description)
+        // setDate(crimes[0][0].date)
+      })
+      // add another then block for states
+      .catch((err: any) => {
+        console.log('U FAILED', err);
+      })
   }, [])
 
   return (
-  <div className="dropdown-selections">
-    <select className="dropdown-set-primary-type" onChange={(e) => setPrimaryType(e.target.value.toUpperCase())}>
-      <option value="arson">ARSON</option>
-      <option value="assault">ASSAULT</option>
-      <option value="homicide">HOMICIDE</option>
-      <option value="battery">BATTERY</option>
-      <option value="burglary">BURGLARY</option>
-      <option value="concealed carry license violation">CONCEALED CARRY LICENSE VIOLATION</option>
-      <option value="criminal abortion">CRIMINAL ABORTION</option>
-      <option value="criminal damage">CRIMINAL DAMAGE</option>
-      <option value="criminal sexual assault">CRIMINAL SEXUAL ASSAULT</option>
-      <option value="criminal trespass">CRIMINAL TRESPASS</option>
-      <option value="deceptive practice">DECEPTIVE PRACTICE</option>
-      <option value="gambling">GAMBLING</option>
-      <option value="human trafficking">HUMAN TRAFFICKING</option>
-      <option value="interference with public officer">INTERFERENCE WITH PUBLIC OFFICER</option>
-      <option value="intimidation">INTIMIDATION</option>
-      <option value="kidnapping">KIDNAPPING</option>
-      <option value="liqour law violation">LIQUOR LAW VIOLATION</option>
-      <option value="motor vehicle theft">MOTOR VEHICLE THEFT</option>
-      <option value="narcotics">NARCOTICS</option>
-      <option value="non-criminal">NON-CRIMINAL</option>
-      <option value="obscenity">OBSCENITY</option>
-      <option value="offense involving children">OFFENSE INVOLVING CHILDREN</option>
-      <option value="other narcotic violation">OTHER NARCOTIC VIOLATION</option>
-      <option value="other offense">OTHER OFFENSE</option>
-      <option value="prostitution">PROSTITUTION</option>
-      <option value="public indecency">PUBLIC INDECENCY</option>
-      <option value="public peace violation">PUBLIC PEACE VIOLATION</option>
-      <option value="ritualism">RITUALISM</option>
-      <option value="robbery">ROBBERY</option>
-      <option value="sex offense">SEX OFFENSE</option>
-      <option value="stalking">STALKING</option>
-      <option value="theft">THEFT</option>
-      <option value="weapons violation">WEAPONS VIOLATION</option>
-    </select>
-    <select onChange={(e) => setDescription(e.target.value)}>
-      <option value="arson" disabled>ARSON</option>
-      {crimeInfo['ARSON'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="assault" disabled>ASSAULT</option>
-      {crimeInfo['ASSAULT'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="homicide" disabled>HOMICIDE</option>
-      {crimeInfo['HOMICIDE'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="battery" disabled>BATTERY</option>
-      {crimeInfo['BATTERY'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="burglary" disabled>BURGLARY</option>
-      {crimeInfo['BURGLARY'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="concealed carry license violation" disabled>CONCEALED CARRY LICENSE VIOLATION</option>
-      {crimeInfo['CONCEALED CARRY LICENSE VIOLATION'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="criminal abortion" disabled>CRIMINAL ABORTION</option>
-      {crimeInfo['CRIMINAL ABORTION'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="criminal damage" disabled>CRIMINAL DAMAGE</option>
-      {crimeInfo['CRIMINAL DAMAGE'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="criminal sexual assault" disabled>CRIMINAL SEXUAL ASSAULT</option>
-      {crimeInfo['CRIMINAL SEXUAL ASSAULT'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="criminal trespass" disabled>CRIMINAL TRESPASS</option>
-      {crimeInfo['CRIMINAL TRESPASS'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="deceptive practice" disabled>DECEPTIVE PRACTICE</option>
-      {crimeInfo['DECEPTIVE PRACTICE'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="gambling" disabled>GAMBLING</option>
-      {crimeInfo['GAMBLING'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="human trafficking" disabled>HUMAN TRAFFICKING</option>
-      {crimeInfo['HUMAN TRAFFICKING'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="interference with public officer" disabled>INTERFERENCE WITH PUBLIC OFFICER</option>
-      {crimeInfo['INTERFERENCE WITH PUBLIC OFFICER'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="intimidation" disabled>INTIMIDATION</option>
-      {crimeInfo['INTIMIDATION'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="kidnapping" disabled>KIDNAPPING</option>
-      {crimeInfo['KIDNAPPING'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="liquor law violation" disabled>LIQUOR LAW VIOLATION</option>
-      {crimeInfo['LIQUOR LAW VIOLATION'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="motor vehicle theft" disabled>MOTOR VEHICLE THEFT</option>
-      {crimeInfo['MOTOR VEHICLE THEFT'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="narcotics" disabled>NARCOTICS</option>
-      {crimeInfo['NARCOTICS'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="non-criminal" disabled>NON-CRIMINAL</option>
-      {crimeInfo['NON-CRIMINAL'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="obscenity" disabled>OBSCENITY</option>
-      {crimeInfo['OBSCENITY'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="offense involving children" disabled>OFFENSE INVOLVING CHILDREN</option>
-      {crimeInfo['OFFENSE INVOLVING CHILDREN'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="other narcotic violation" disabled>OTHER NARCOTIC VIOLATION</option>
-      {crimeInfo['OTHER NARCOTIC VIOLATION'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="other offense" disabled>OTHER OFFENSE</option>
-      {crimeInfo['OTHER OFFENSE'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="prostitution" disabled>PROSTITUTION</option>
-      {crimeInfo['PROSTITUTION'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="public indecency" disabled>PUBLIC INDECENCY</option>
-      {crimeInfo['PUBLIC INDECENCY'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="public peace violation" disabled>PUBLIC PEACE VIOLATION</option>
-      {crimeInfo['PUBLIC PEACE VIOLATION'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="ritualism" disabled>RITUALISM</option>
-      {crimeInfo['RITUALISM'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="robbery" disabled>ROBBERY</option>
-      {crimeInfo['ROBBERY'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="sex offense" disabled>SEX OFFENSE</option>
-      {crimeInfo['SEX OFFENSE'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="stalking" disabled>STALKING</option>
-      {crimeInfo['STALKING'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="theft" disabled>THEFT</option>
-      {crimeInfo['THEFT'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
-      ))}
-      <option value="weapons violation" disabled>WEAPONS VIOLATION</option>
-      {crimeInfo['WEAPONS VIOLATION'].map((subcategory: any, key: any) => (
-        <option value={subcategory} key={key}> {subcategory} </option>
+    <div className="dropdown-selections">
+      <input placeholder="Enter Address" onChange={(e) => setLocation(e.target.value)}></input>
+      <select className="dropdown-set-primary-type" placeholder="Select Crime" onChange={(e) => setPrimaryType(e.target.value.toUpperCase())}>
+        <option value="arson">ARSON</option>
+        <option value="assault">ASSAULT</option>
+        <option value="homicide">HOMICIDE</option>
+        <option value="battery">BATTERY</option>
+        <option value="burglary">BURGLARY</option>
+        <option value="concealed carry license violation">CONCEALED CARRY LICENSE VIOLATION</option>
+        <option value="criminal abortion">CRIMINAL ABORTION</option>
+        <option value="criminal damage">CRIMINAL DAMAGE</option>
+        <option value="criminal sexual assault">CRIMINAL SEXUAL ASSAULT</option>
+        <option value="criminal trespass">CRIMINAL TRESPASS</option>
+        <option value="deceptive practice">DECEPTIVE PRACTICE</option>
+        <option value="gambling">GAMBLING</option>
+        <option value="human trafficking">HUMAN TRAFFICKING</option>
+        <option value="interference with public officer">INTERFERENCE WITH PUBLIC OFFICER</option>
+        <option value="intimidation">INTIMIDATION</option>
+        <option value="kidnapping">KIDNAPPING</option>
+        <option value="liqour law violation">LIQUOR LAW VIOLATION</option>
+        <option value="motor vehicle theft">MOTOR VEHICLE THEFT</option>
+        <option value="narcotics">NARCOTICS</option>
+        <option value="non-criminal">NON-CRIMINAL</option>
+        <option value="obscenity">OBSCENITY</option>
+        <option value="offense involving children">OFFENSE INVOLVING CHILDREN</option>
+        <option value="other narcotic violation">OTHER NARCOTIC VIOLATION</option>
+        <option value="other offense">OTHER OFFENSE</option>
+        <option value="prostitution">PROSTITUTION</option>
+        <option value="public indecency">PUBLIC INDECENCY</option>
+        <option value="public peace violation">PUBLIC PEACE VIOLATION</option>
+        <option value="ritualism">RITUALISM</option>
+        <option value="robbery">ROBBERY</option>
+        <option value="sex offense">SEX OFFENSE</option>
+        <option value="stalking">STALKING</option>
+        <option value="theft">THEFT</option>
+        <option value="weapons violation">WEAPONS VIOLATION</option>
+      </select>
+      <select placeholder="Select Subcategory" onChange={(e) => setDescription(e.target.value)}>
+        <option value="arson" disabled>ARSON</option>
+        {crimeInfo['ARSON'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
         ))}
-    </select>
-    <button onClick = {() => getSearchedCrime(primaryType, description)}> Search </button>
-  </div>
+        <option value="assault" disabled>ASSAULT</option>
+        {crimeInfo['ASSAULT'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="homicide" disabled>HOMICIDE</option>
+        {crimeInfo['HOMICIDE'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="battery" disabled>BATTERY</option>
+        {crimeInfo['BATTERY'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="burglary" disabled>BURGLARY</option>
+        {crimeInfo['BURGLARY'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="concealed carry license violation" disabled>CONCEALED CARRY LICENSE VIOLATION</option>
+        {crimeInfo['CONCEALED CARRY LICENSE VIOLATION'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="criminal abortion" disabled>CRIMINAL ABORTION</option>
+        {crimeInfo['CRIMINAL ABORTION'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="criminal damage" disabled>CRIMINAL DAMAGE</option>
+        {crimeInfo['CRIMINAL DAMAGE'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="criminal sexual assault" disabled>CRIMINAL SEXUAL ASSAULT</option>
+        {crimeInfo['CRIMINAL SEXUAL ASSAULT'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="criminal trespass" disabled>CRIMINAL TRESPASS</option>
+        {crimeInfo['CRIMINAL TRESPASS'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="deceptive practice" disabled>DECEPTIVE PRACTICE</option>
+        {crimeInfo['DECEPTIVE PRACTICE'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="gambling" disabled>GAMBLING</option>
+        {crimeInfo['GAMBLING'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="human trafficking" disabled>HUMAN TRAFFICKING</option>
+        {crimeInfo['HUMAN TRAFFICKING'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="interference with public officer" disabled>INTERFERENCE WITH PUBLIC OFFICER</option>
+        {crimeInfo['INTERFERENCE WITH PUBLIC OFFICER'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="intimidation" disabled>INTIMIDATION</option>
+        {crimeInfo['INTIMIDATION'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="kidnapping" disabled>KIDNAPPING</option>
+        {crimeInfo['KIDNAPPING'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="liquor law violation" disabled>LIQUOR LAW VIOLATION</option>
+        {crimeInfo['LIQUOR LAW VIOLATION'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="motor vehicle theft" disabled>MOTOR VEHICLE THEFT</option>
+        {crimeInfo['MOTOR VEHICLE THEFT'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="narcotics" disabled>NARCOTICS</option>
+        {crimeInfo['NARCOTICS'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="non-criminal" disabled>NON-CRIMINAL</option>
+        {crimeInfo['NON-CRIMINAL'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="obscenity" disabled>OBSCENITY</option>
+        {crimeInfo['OBSCENITY'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="offense involving children" disabled>OFFENSE INVOLVING CHILDREN</option>
+        {crimeInfo['OFFENSE INVOLVING CHILDREN'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="other narcotic violation" disabled>OTHER NARCOTIC VIOLATION</option>
+        {crimeInfo['OTHER NARCOTIC VIOLATION'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="other offense" disabled>OTHER OFFENSE</option>
+        {crimeInfo['OTHER OFFENSE'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="prostitution" disabled>PROSTITUTION</option>
+        {crimeInfo['PROSTITUTION'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="public indecency" disabled>PUBLIC INDECENCY</option>
+        {crimeInfo['PUBLIC INDECENCY'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="public peace violation" disabled>PUBLIC PEACE VIOLATION</option>
+        {crimeInfo['PUBLIC PEACE VIOLATION'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="ritualism" disabled>RITUALISM</option>
+        {crimeInfo['RITUALISM'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="robbery" disabled>ROBBERY</option>
+        {crimeInfo['ROBBERY'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="sex offense" disabled>SEX OFFENSE</option>
+        {crimeInfo['SEX OFFENSE'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="stalking" disabled>STALKING</option>
+        {crimeInfo['STALKING'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="theft" disabled>THEFT</option>
+        {crimeInfo['THEFT'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+        <option value="weapons violation" disabled>WEAPONS VIOLATION</option>
+        {crimeInfo['WEAPONS VIOLATION'].map((subcategory: any, key: any) => (
+          <option value={subcategory} key={key}> {subcategory} </option>
+        ))}
+      </select>
+      <select className="dropdown-set-search-radius" placeholder="Select Search Area" onChange={(e) => setSearchRadius(e.target.value)}>
+        <option value="no-change">Select Search Area...</option>
+        <option value="1">1 mile</option>
+        <option value="5">5 miles</option>
+        <option value="10">10 miles</option>
+        <option value="25">25 miles</option>
+        <option value="50">50 miles</option>
+        <option value="50">100 miles</option>
+      </select>
+      <select placeholder="Select Date"></select>
+      <button onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}> Search </button>
+    </div>
   )
 }
 
