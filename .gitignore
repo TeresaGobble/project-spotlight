@@ -1,5 +1,12 @@
+# geocode-config
+
+geocode-config.js
+
 # package-lock.json
 package-lock.json
+
+#firebase-config
+firebase-config.ts
 
 # Logs
 logs
