@@ -152,6 +152,7 @@ const Dropdowns = () => {
     <div className="dropdown-selections">
       <input placeholder="Enter Address" onChange={(e) => setLocation(e.target.value)}></input>
       <select className="dropdown-set-primary-type" placeholder="Select Crime" onChange={(e) => setPrimaryType(e.target.value.toUpperCase())}>
+        <option value="Select Crime...">Select Crime...</option>
         <option value="arson">ARSON</option>
         <option value="assault">ASSAULT</option>
         <option value="homicide">HOMICIDE</option>
@@ -187,6 +188,7 @@ const Dropdowns = () => {
         <option value="weapons violation">WEAPONS VIOLATION</option>
       </select>
       <select placeholder="Select Subcategory" onChange={(e) => setDescription(e.target.value)}>
+      <option value="Select Subcategory...">Select Subcategory...</option>
         <option value="arson" disabled>ARSON</option>
         {crimeInfo['ARSON'].map((subcategory: any, key: any) => (
           <option value={subcategory} key={key}> {subcategory} </option>

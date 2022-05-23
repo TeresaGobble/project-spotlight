@@ -70,6 +70,7 @@ const Footer = () => {
     border: '2px solid #a9a9a9',
     boxShadow: 24,
     p: 4,
+    borderRadius: '10px'
   };
 
   return (
@@ -82,8 +83,8 @@ const Footer = () => {
           <br></br>
           <a href="https://www.linkedin.com/in/teresa-gobble/">Teresa Gobble</a>
         </div> */}
-        <div className="modal-creators">
-          <button onClick={handleOpen}>About the Creators</button>
+        <div>
+          <button className="modal-creators" onClick={handleOpen}>About the Creators</button>
           <Modal
             open={open}
             onClose={handleClose}
