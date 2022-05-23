@@ -330,6 +330,7 @@ const Dropdowns = () => {
         <option value="50">100 miles</option>
       </select>
       <select placeholder="Select Date"></select>
+      <button className="dropdown-limitations" onMouseOver = {() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')} onMouseOut = {() => window.alert('see you later alligator!')}> ? </button>
       <button onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}> Search </button>
     </div>
   )
