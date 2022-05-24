@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios, { AxiosResponse } from "axios";
 import { Crime } from "./App";
-// import './index.css';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { DatePicker } from "@mui/x-date-pickers";
-// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { CrimesContext } from "./CrimesContext"; //need the context here (since dropdowns set the crime object content)
-// need to set the values here to the crimes context object (like "setState")
+import { CrimesContext } from "./CrimesContext";
 import geocodeToken from "../geocode-config";
+
+import TextField from '@mui/material/TextField';
+import { DatePicker } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
 
 const Dropdowns = () => {
   const { setCrimes } = useContext(CrimesContext); //this is already here
@@ -18,9 +21,9 @@ const Dropdowns = () => {
   const [location, setLocation] = useState("");
   const [primaryType, setPrimaryType] = useState("");
   const [description, setDescription] = useState("");
-  // const [context, setContext] = useState(CrimesContext);
   const [searchRadius, setSearchRadius] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate]= React.useState<Date | null>(null);
+  const [open, setOpen] = React.useState(false);
 
   const crimeInfo: any = {
     ARSON: [
@@ -977,22 +980,26 @@ const Dropdowns = () => {
         <option value="50">100 miles</option>
       </select>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker
-          value={new Date()}
-          onChange={console.log} renderInput={undefined}/>
+        <DatePicker
+        label="Select Date"
+        value={date}
+        onChange={(newValue) => {
+        setDate(newValue);
+        }}
+      renderInput={(params) => <TextField {...params} />}
+      />
       </LocalizationProvider>
-      <button
-        className="dropdown-limitations"
-        onMouseOver={() =>
-          window.alert(
-            "we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports."
-          )
-        }
-        onMouseOut={() => window.alert("see you later alligator!")}
+      <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
+        <Modal
+        open={open}
+        onBackdropClick={() => setOpen(false)}
       >
-        {" "}
-        ?{" "}
-      </button>
+         <Box sx={{ width: 200 }}>
+          <p id="modal-text">
+          We allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.'
+          </p>
+          </Box>
+      </Modal>
       <button
         onClick={() =>
           getSearchedCrime(primaryType, description, location, searchRadius)
