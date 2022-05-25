@@ -16,6 +16,7 @@ import Button from '@mui/material/Button';
 const Dropdowns = () => {
   const { setCrimes } = useContext(CrimesContext); //this is already here
 
+
   const crimes: any[] = [];
 
   const [location, setLocation] = useState("");
@@ -23,6 +24,12 @@ const Dropdowns = () => {
   const [description, setDescription] = useState("");
   const [searchRadius, setSearchRadius] = useState("");
   const [date, setDate]= React.useState<Date | null>(null);
+
+  // date functionality notes:
+  // - only look at first ten characters when matching with API (is there a SOQL way to say "if includes" or "contains")
+  // - dropdown console needs to be transformed into format for query
+  // Thu Nov 18 2021 to 2021-11-18 (yyyy-mm-dd)
+
   const [open, setOpen] = React.useState(false);
 
   const crimeInfo: any = {
@@ -538,6 +545,7 @@ const Dropdowns = () => {
     let westernmostLongitude = longitude - 0.015 * parseInt(searchRadius);
     let northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
     let southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
+    let newDate = date.toISOString().slice(0,10);
 
     var requestOptions = {
       method: "GET",
@@ -586,14 +594,6 @@ const Dropdowns = () => {
       .then((res: any) => {
         crimes.push(res.data);
       })
-      .then(() => {
-        // I CAN PROBABLY GET RID OF THIS ENTIRE THEN BLOCK
-        // setLatitude(crimes[0][0].latitude)
-        // setPrimaryType(crimes[0][0].primaryType)
-        // setDescription(crimes[0][0].description)
-        // setDate(crimes[0][0].date)
-      })
-      // add another then block for states
       .catch((err: any) => {
         console.log("U FAILED", err);
       });
@@ -984,6 +984,7 @@ const Dropdowns = () => {
         label="Select Date"
         value={date}
         onChange={(newValue) => {
+        console.log(newValue.toISOString());
         setDate(newValue);
         }}
       renderInput={(params) => <TextField {...params} />}
