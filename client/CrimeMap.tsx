@@ -59,7 +59,7 @@ const CrimeMap = () => {
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {crimes.map((crime, index) => (
+        {crimes.length > 0 && crimes.map((crime, index) => (
            crime.longitude !== undefined &&  <Marker position={[crime.latitude, crime.longitude]}>
             <Popup>
               {crime.primary_type}<br/> {crime.description}
