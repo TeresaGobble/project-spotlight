@@ -4,10 +4,10 @@ import { Crime } from './App';
 // import './index.css';
 import { CrimesContext } from "./CrimesContext"; //need the context here (since dropdowns set the crime object content)
 // need to set the values here to the crimes context object (like "setState")
-import geocodeToken from "../geocode-config"
+import geocodeToken from "../geocode-config";
 
 const Dropdowns = () => {
-  const { setCrimes } = useContext(CrimesContext); //this is already here
+  const { setCrimes, setMapCenter, setZoomRate } = useContext(CrimesContext);
 
   const crimes: any[] = [];
 
@@ -87,9 +87,30 @@ const Dropdowns = () => {
     'WEAPONS VIOLATION': ['UNLAWFUL USE - HANDGUN', 'UNLAWFUL USE - OTHER FIREARM', 'UNLAWFUL USE - OTHER DANGEROUS WEAPON', 'UNLAWFUL SALE - HANDGUN', 'UNLAWFUL SALE - OTHER FIREARM', 'UNLAWFUL SALE - DELIVERY OF FIREARM AT SCHOOL', 'UNLAWFUL POSSESSION - HANDGUN', 'UNLAWFUL POSSESSION - OTHER FIREARM', 'UNLAWFUL POSSESSION - AMMUNITION', 'REGISTER OF SALES BY DEALER', 'DEFACE IDENTIFICATION MARKS OF FIREARM', 'POSSESS FIREARM / AMMUNITION - NO FOID CARD', 'SALE OF METAL PIERCING BULLETS', 'USE OF METAL PIERCING BULLETS', 'RECKLESS FIREARM DISCHARGE', 'UNLAWFUL USE / SALE OF AIR RIFLE']
   };
 
-  const theNewToken = '0d5ba9fc606c453cb6c3bb3d7a47b2dc'
-  async function getSearchedCrime(primaryType: string, description: string, location: string, searchRadius: string): Promise<Crime> {  // add a searchRadius and a location (array with long and lat) to this!
-    // TO-DO: make a fetch request to the geocoding API
+const getSearchedCrime = (primaryType: string, description: string, location: string, searchRadius: string): any => {
+
+    // setting the zoom rate in the map based on the search radius
+    if (searchRadius) {
+      const zoomRatesBySearchRadiusSize: object = {
+        "1" : 12,
+        "5" : 11,
+        "10": 10,
+        "25": 8,
+        "50": 6,
+        "100": 5
+      }
+      console.log(zoomRatesBySearchRadiusSize[searchRadius])
+      setZoomRate(zoomRatesBySearchRadiusSize[searchRadius]);
+    } else {
+        setZoomRate(11);
+    }
+
+    // conditionals for rendering each dropdown as optional
+    // if (description === '') {
+    //   description = "*";
+    // }
+
+    // setting the default search radius
     let longitude = -87.6243;
     let latitude = 41.8757;
     let easternmostLongitude = longitude + 0.015 * parseInt(searchRadius);
@@ -97,35 +118,40 @@ const Dropdowns = () => {
     let northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
     let southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
 
+    // Calling both APIs
     var requestOptions = {
       method: 'GET',
     };
+
     fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${location}+Chicago+IL&apiKey=${geocodeToken.geocodeToken}`, requestOptions)
       .then(response => response.json())
-      .then(result => {// need to check shape of result!
-        console.log('THE RESULT OF CALLING THE GEOAPIFY', result.features[0].properties.lon, result.features[0].properties.lon)
+      .then(result => {
 
         longitude = result.features[0].properties.lon;
         latitude = result.features[0].properties.lat;
 
-        easternmostLongitude = longitude + 0.015 * parseInt(searchRadius);
-        westernmostLongitude = longitude - 0.015 * parseInt(searchRadius);
-        northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
-        southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
+        setMapCenter([latitude, longitude]);
 
-        //  console.log("the various coordinates after call", easternmost, westernmost, northernmost, southernmost)
+        let geoAppifyResult = {
+          easternmostLongitude: longitude + 0.015 * parseInt(searchRadius),
+          westernmostLongitude: longitude - 0.015 * parseInt(searchRadius),
+          northernmostLatitude: latitude + 0.015 * parseInt(searchRadius),
+          southernmostLatitude: latitude - 0.015 * parseInt(searchRadius)
+        }
+        return geoAppifyResult;
+      })
+      .then(geoAppifyResult => {
+        const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude}`)
+        return result;
+
+      })
+      .then(response => response.json())
+      .then(result => {
+        setCrimes(result);
+        return result;
+
       })
       .catch(error => console.log('error', error));
-
-    // add the longitude and the latitude returned from the geocode API to the fetch request below:
-    const res = await fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${southernmostLatitude} AND latitude <= ${northernmostLatitude} AND longitude >= ${westernmostLongitude} AND longitude <= ${easternmostLongitude}`);
-    const data = await res.json();
-    // &$where longitude >{longitude}& latitude >${latitude}
-    // .then filter by searchRadius for all long and lats that fit that radius (need to figure out how many miles are in coordinate units)
-    // THEN set the resulting filtered data below
-    console.log(data)
-    setCrimes(data);
-    return data as Crime;
   }
 
   useEffect(() => {
@@ -149,6 +175,33 @@ const Dropdowns = () => {
   }, [])
 
   return (
+    <>
+      <div className="name-and-info-section">
+        <div className="name-and-info-item">
+          <div>Location  </div>
+          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+        </div>
+
+        <div className="name-and-info-item">
+          <div>Crime  </div>
+          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+        </div>
+
+        <div className="name-and-info-item">
+          <div>Subcategory  </div>
+          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+        </div>
+
+        <div className="name-and-info-item">
+          <div>Search Area  </div>
+          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+        </div>
+
+        <div className="name-and-info-item">
+          <div>Date  </div>
+          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+        </div>
+      </div>
     <div className="dropdown-selections">
       <input placeholder="Enter Address" onChange={(e) => setLocation(e.target.value)}></input>
       <select className="dropdown-set-primary-type" placeholder="Select Crime" onChange={(e) => setPrimaryType(e.target.value.toUpperCase())}>
@@ -329,13 +382,18 @@ const Dropdowns = () => {
         <option value="10">10 miles</option>
         <option value="25">25 miles</option>
         <option value="50">50 miles</option>
-        <option value="50">100 miles</option>
+        <option value="100">100 miles</option>
       </select>
       <select placeholder="Select Date"></select>
-      <button className="dropdown-limitations" onMouseOver = {() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')} onMouseOut = {() => window.alert('see you later alligator!')}> ? </button>
-      <button onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}> Search </button>
+      <button className="search-icon" onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}>Search</button>
+
     </div>
+    </>
   )
 }
 
 export default Dropdowns;
+
+{/* <img className="search-icon" alt="magnifying glass" src="https://i.imgur.com/dCoTssr.png"></img>
+
+style="background: url(myimage.png)"  */}

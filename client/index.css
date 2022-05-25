@@ -84,7 +84,7 @@ background: #E9E1DF;
 .dropdown-selections {
   /* position: relative; */
   /* width: 234px; */
-  height: inherit;
+  height: fit-content;
   align-items: center;
   display: grid;
   column-gap: 40px;
@@ -93,6 +93,26 @@ background: #E9E1DF;
 }
 
 /* this next piece will override the dropdown selections ALL (*) IMMEDIATE (>) children and apply this styling, which should make adding a date dropdown quick and easy hopefully*/
+
+.name-and-info-section {
+  width: 100%;
+  height: 47px;
+  display: grid;
+  align-items: center;
+  border-radius: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  grid-row: 1;
+  border: none;
+  inline-size: fit-content;
+  grid-gap: 181px;
+}
+
+.name-and-info-item {
+  grid-row: 1;
+  display: -webkit-box;
+  grid-gap: 4px;
+}
+
 .dropdown-selections > * {
   width: 100%;
   height: 56px;
@@ -103,7 +123,7 @@ background: #E9E1DF;
 }
 
 .dropdown-limitations {
-  background:rgba(307, 220, 209, 0.85);
+  background:rgba(36, 35, 35, 0.85);
   color: #fff;
   border-radius: 50%;
   width: 20px;
@@ -112,7 +132,12 @@ background: #E9E1DF;
   text-align: center;
   font-size: 10px;
   font-family: Verdana;
+  font-weight: bolder;
 }
+
+/* .search-icon {
+  background: url(https://i.imgur.com/dCoTssr.png)
+} */
 
 /* #dropdown-set-primary-type {
   position: relative;

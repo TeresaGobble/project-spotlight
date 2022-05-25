@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 
+
 app.get('/crimes', (Request, Response) => {
   // console.log('REQUEST IN SERVER', Request);
 
