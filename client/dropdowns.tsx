@@ -23,7 +23,7 @@ const Dropdowns = () => {
   //   return crimeInfo[primaryType];
   // }, [primaryType]);
   // {Object.keys(crimeInfo).map()} // <-- on line 204 to eliminate bulk of lines
-  //
+  //  {secondaryTypeOptions.map((subcategory) => )}
 
   const crimeInfo: any = {
     'ARSON': ['BY EXPLOSIVE', 'BY FIRE', 'AGGRAVATED', 'POSSESSION - EXPLOSIVE / INCENDIARY DEVICE', 'POSSESSION - CHEMICAL / DRY-ICE DEVICE', 'ATTEMPT ARSON'],
@@ -248,7 +248,6 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
       </select>
       <select placeholder="Select Subcategory" onChange={(e) => setDescription(e.target.value)}>
       <option value="Select Subcategory...">Select Subcategory...</option>
-        {secondaryTypeOptions.map((subcategory) => )}
         <option value="arson" disabled>ARSON</option>
         {crimeInfo['ARSON'].map((subcategory: any, key: any) => (
           <option value={subcategory} key={key}> {subcategory} </option>
