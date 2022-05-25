@@ -1,10 +1,10 @@
-import React, { Component, useContext } from "react";
+import React, { Component, useContext, useMemo} from "react";
 
 // import {default as a} from "a.json";
 // a.primaryMain
 
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { CrimesContext } from "./CrimesContext.js"; //typescript error
 // const reactMap = require()
 
@@ -29,12 +29,26 @@ interface CrimeSample {
   description: string;
 }
 
+
+
 const CrimeMap = () => {
   const { crimes, mapCenter, zoomRate } = useContext(CrimesContext) // this is how we grab the context for rendering
   //array containing crimes that fit the user's entered criteria
   console.log("mapCenter from context in the map component", mapCenter)
   console.log("Zoom rate from context in the map component", zoomRate);
 
+  // const refreshMap = useMemo(() => {
+  //   return
+  // }, [zoomRate]);
+
+
+
+  function SetViewOnClick({ mapCenter, zoomRate}) {
+    const map = useMap();
+    map.setView(mapCenter, zoomRate);
+
+    return null;
+  }
   // const onChange = e => {
   // };
   // onChange={onchange} value={mapCenter}
@@ -52,6 +66,10 @@ const CrimeMap = () => {
             </Popup>
           </Marker>
         ))}
+        <SetViewOnClick
+        mapCenter={mapCenter}
+        zoomRate={zoomRate}
+      />
       </MapContainer>
     </>
   )

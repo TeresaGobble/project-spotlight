@@ -23,7 +23,7 @@ const Dropdowns = () => {
   //   return crimeInfo[primaryType];
   // }, [primaryType]);
   // {Object.keys(crimeInfo).map()} // <-- on line 204 to eliminate bulk of lines
-  //  {secondaryTypeOptions.map((subcategory) => )}
+  //  {secondaryTypeOptions.map((subcategory) => )} <-- to resolve dropdown issue? after making useMemo (must have both)
 
   const crimeInfo: any = {
     'ARSON': ['BY EXPLOSIVE', 'BY FIRE', 'AGGRAVATED', 'POSSESSION - EXPLOSIVE / INCENDIARY DEVICE', 'POSSESSION - CHEMICAL / DRY-ICE DEVICE', 'ATTEMPT ARSON'],
@@ -98,12 +98,12 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
     // setting the zoom rate in the map based on the search radius
     if (searchRadius) {
       const zoomRatesBySearchRadiusSize: object = {
-        "1" : 12,
-        "5" : 11,
-        "10": 10,
-        "25": 8,
-        "50": 6,
-        "100": 5
+        "1" : 14,
+        "5" : 12,
+        "10": 11,
+        "25": 10,
+        "50": 10,
+        "100": 10
       }
       console.log(zoomRatesBySearchRadiusSize[searchRadius])
       setZoomRate(zoomRatesBySearchRadiusSize[searchRadius]);
