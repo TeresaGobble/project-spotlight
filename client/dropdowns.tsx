@@ -716,6 +716,13 @@ const Dropdowns = () => {
           <option value="50">50 miles</option>
           <option value="100">100 miles</option>
         </select>
+        <button onClick={() => setOpen(true)}>click me</button>
+        <Modal
+          open={open}
+          onBackdropClick={() => setOpen(false)}
+        >
+          <Box>
+
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
             label="Select Start Date"
@@ -725,7 +732,7 @@ const Dropdowns = () => {
               setStartDate(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
-          />
+            />
         </LocalizationProvider>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
@@ -736,8 +743,10 @@ const Dropdowns = () => {
               setEndDate(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
-          />
+            />
         </LocalizationProvider>
+        </Box>
+        </Modal>
         {/* <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
         <Modal
           open={open}
