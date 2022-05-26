@@ -32,11 +32,11 @@ const SearchTable = () => {
 
   return (
     <div>
-      <div className="table" style={{height: 550, width: '40%'}}>
+      <div className="table" style={{height: 550, width: '40%', borderRadius: "10px"}}>
           <DataGrid
             rows={rows}
             columns={columns}
-            style={{top: '302px', left:'692px', height: '550px', width: '685px'}}
+            style={{top: '302px', left:'692px', height: '550px', width: '685px', borderRadius: "10px"}}
             rowsPerPageOptions={[rows.length]}
           />
       </div>
