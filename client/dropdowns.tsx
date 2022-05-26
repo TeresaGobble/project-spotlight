@@ -596,12 +596,17 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
         return geoAppifyResult;
       })
       .then(geoAppifyResult => {
-        const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude}`)
+        console.log('FIRST', `https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "2015-09-06T00:00:00.000" AND date <= "2015-09-06T23:59:59.999"`)
+
+
+        const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
+        console.log('for terri', result);
         return result;
         // &$where=date >= ${newDate}'T00:00:00.000' AND date <= ${newDate}'T23:59:59.999'
       })
       .then(response => response.json())
       .then(result => {
+        console.log('for charles', result);
         setCrimes(result);
         return result;
 
