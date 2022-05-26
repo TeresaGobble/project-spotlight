@@ -8,18 +8,18 @@ const SearchTable = () => {
   const { crimes } = useContext(CrimesContext);
 
   const columns: GridColDef[] = [
-      { field: 'id', headerName: '#', width: 0},
+      { field: 'id', headerName: '#', width: 0, hide: true},
       { field: 'date', headerName: 'Date', width: 100},
-      { field: 'time', headerName: 'Time', width: 60},
-      { field: 'crime', headerName: 'Crime', width: 110},
-      { field: 'description', headerName: 'Description', width: 180},
-      { field: 'street', headerName: 'Street', width: 180}
+      { field: 'time', headerName: 'Time', width: 60, sortable: false},
+      { field: 'crime', headerName: 'Crime', width: 110, sortable: false},
+      { field: 'description', headerName: 'Description', width: 200, sortable: false},
+      { field: 'street', headerName: 'Street', width: 180, sortable: false}
   ];
 
   const rows = [];
 
   crimes.map((e: Crime, i: number) => {
-      let date = e.date.slice(5, 7) + '/' + e.date.slice(8, 10) + '/' + e.date.slice(0, 4);
+      let date = e.date.slice(0, 4) + '/' + e.date.slice(5, 7) + '/' + e.date.slice(8, 10);
       rows.push({
           id: i + 1,
           date: date,

@@ -16,7 +16,7 @@ const Dropdowns = () => {
   const [primaryType, setPrimaryType] = useState('');
   const [description, setDescription] = useState('');
   // const [context, setContext] = useState(CrimesContext);
-  const [searchRadius, setSearchRadius] = useState('');
+  const [searchRadius, setSearchRadius] = useState('1');
   const [date, setDate] = useState('');
 
   // {Object.keys(crimeInfo).map()} // <-- on line 204 to eliminate bulk of lines for primary?
@@ -119,9 +119,10 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
     }
 
     // conditionals for rendering each dropdown as optional
-    // if (description === '') {
-    //   description = "*";
-    // }
+    if (description !== '') {
+      description = "&description= " + description;
+    }
+
 
     // setting the default search radius
     let longitude = -87.6243;
@@ -154,7 +155,7 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
         return geoAppifyResult;
       })
       .then(geoAppifyResult => {
-        const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude}`)
+        const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude}`)
         return result;
 
       })
