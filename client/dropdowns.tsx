@@ -635,6 +635,19 @@ const Dropdowns = () => {
       });
   }, []);
 
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: 336,
+    left: 1136,
+    width: 303,
+    transform: 'translate(-50%, -50%)',
+    bgcolor: 'background.paper',
+    border: '2px solid #a9a9a9',
+    boxShadow: 24,
+    p: 4,
+    borderRadius: '10px'
+  };
+
   return (
     <>
       <div className="name-and-info-section">
@@ -716,36 +729,35 @@ const Dropdowns = () => {
           <option value="50">50 miles</option>
           <option value="100">100 miles</option>
         </select>
-        <button onClick={() => setOpen(true)}>click me</button>
-        <Modal
+        <button className="date-button" placeholder="Select Date" onClick={() => setOpen(true)}>Select Date Range...</button>
+        <Modal className="modal-creators"
           open={open}
           onBackdropClick={() => setOpen(false)}
         >
-          <Box>
-
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DatePicker
-            label="Select Start Date"
-            value={startDate}
-            onChange={(newValue) => {
-              // console.log(newValue.toISOString());
-              setStartDate(newValue);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-            />
-        </LocalizationProvider>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DatePicker
-            label="Select End Date"
-            value={endDate}
-            onChange={(newValue) => {
-              // console.log(newValue.toISOString());
-              setEndDate(newValue);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-            />
-        </LocalizationProvider>
-        </Box>
+          <Box sx={style} >
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Select Start Date"
+                value={startDate}
+                onChange={(newValue) => {
+                  // console.log(newValue.toISOString());
+                  setStartDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Select End Date"
+                value={endDate}
+                onChange={(newValue) => {
+                  // console.log(newValue.toISOString());
+                  setEndDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </Box>
         </Modal>
         {/* <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
         <Modal

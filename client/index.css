@@ -89,7 +89,10 @@ background: #E9E1DF;
   display: grid;
   column-gap: 40px;
   grid-template-columns: 1fr 1fr 1fr 1fr auto;
+}
 
+.date-button {
+  width: 200px !important;
 }
 
 /* this next piece will override the dropdown selections ALL (*) IMMEDIATE (>) children and apply this styling, which should make adding a date dropdown quick and easy hopefully*/
@@ -104,7 +107,7 @@ background: #E9E1DF;
   grid-row: 1;
   border: none;
   inline-size: fit-content;
-  grid-gap: 181px;
+  grid-gap: 138px;
 }
 
 .name-and-info-item {
@@ -120,7 +123,9 @@ background: #E9E1DF;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.07));
   grid-row: 1;
   border: none;
+  background-color: white;
 }
+
 
 .dropdown-limitations {
   background:rgba(36, 35, 35, 0.85);
