@@ -23,7 +23,7 @@ const Dropdowns = () => {
   const [location, setLocation] = useState("");
   const [primaryType, setPrimaryType] = useState("");
   const [description, setDescription] = useState("");
-  const [searchRadius, setSearchRadius] = useState("1");
+  const [searchRadius, setSearchRadius] = useState("5");
   const [date, setDate] = React.useState<Date | null>(null);
   const [open, setOpen] = React.useState(false);
 
@@ -582,7 +582,7 @@ const Dropdowns = () => {
       let northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
       let southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
       let newDate = date.toISOString().slice(0, 10);
-      console.log('newDate: ', newDate);
+      // console.log('newDate: ', newDate);
 
       // Calling both APIs
       var requestOptions = {
