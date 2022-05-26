@@ -24,7 +24,8 @@ const Dropdowns = () => {
   const [primaryType, setPrimaryType] = useState("");
   const [description, setDescription] = useState("");
   const [searchRadius, setSearchRadius] = useState("5");
-  const [date, setDate] = React.useState<Date | null>(null);
+  const [startDate, setStartDate] = React.useState<Date | null>(null);
+  const [endDate, setEndDate] = React.useState<Date | null>(null);
   const [open, setOpen] = React.useState(false);
 
   // date functionality notes:
@@ -544,7 +545,7 @@ const Dropdowns = () => {
 
   const getSearchedCrime = (primaryType: string, description: string, location: string, searchRadius: string): any => {
 
-    if (primaryType === '' || date === null) {
+    if (primaryType === '' || startDate === null || endDate === null) {
       window.alert('Please select both a Crime and Date before searching');
     } else {
 
@@ -581,7 +582,8 @@ const Dropdowns = () => {
       let westernmostLongitude = longitude - 0.015 * parseInt(searchRadius);
       let northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
       let southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
-      let newDate = date.toISOString().slice(0, 10);
+      let newStartDate = startDate.toISOString().slice(0, 10);
+      let newEndDate = endDate.toISOString().slice(0, 10);
       // console.log('newDate: ', newDate);
 
       // Calling both APIs
@@ -609,7 +611,7 @@ const Dropdowns = () => {
         .then(geoAppifyResult => {
           // TODO: latitude and longitude are NaN
           // const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
-          const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
+          const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newStartDate}T00:00:00.000" AND date <= "${newEndDate}T23:59:59.999"`)
           return result;
         })
         .then(response => response.json())
@@ -716,16 +718,27 @@ const Dropdowns = () => {
         </select>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
-            label="Select Date"
-            value={date}
+            label="Select Start Date"
+            value={startDate}
             onChange={(newValue) => {
               // console.log(newValue.toISOString());
-              setDate(newValue);
+              setStartDate(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-        <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+            label="Select End Date"
+            value={endDate}
+            onChange={(newValue) => {
+              // console.log(newValue.toISOString());
+              setEndDate(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+        {/* <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
         <Modal
           open={open}
           onBackdropClick={() => setOpen(false)}
@@ -735,7 +748,7 @@ const Dropdowns = () => {
               We allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.'
             </p>
           </Box>
-        </Modal>
+        </Modal> */}
         <button className="search-icon" onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}>Search</button>
       </div>
     </>
