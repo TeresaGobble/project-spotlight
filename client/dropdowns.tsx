@@ -23,8 +23,8 @@ const Dropdowns = () => {
   const [location, setLocation] = useState("");
   const [primaryType, setPrimaryType] = useState("");
   const [description, setDescription] = useState("");
-  const [searchRadius, setSearchRadius] = useState("");
-  const [date, setDate]= React.useState<Date | null>(null);
+  const [searchRadius, setSearchRadius] = useState("1");
+  const [date, setDate] = React.useState<Date | null>(null);
   const [open, setOpen] = React.useState(false);
 
   // date functionality notes:
@@ -532,7 +532,7 @@ const Dropdowns = () => {
   };
 
   const subcategoryOptions = useMemo(() => {
-    console.log("primaryType inside useMemo: ", primaryType)
+    // console.log("primaryType inside useMemo: ", primaryType)
     if (primaryType !== '') {
       return crimeInfo[primaryType];
     } else {
@@ -540,81 +540,86 @@ const Dropdowns = () => {
     }
   }, [primaryType]);
 
-  console.log("subcategoryOptions: ", subcategoryOptions);
+  // console.log("subcategoryOptions: ", subcategoryOptions);
 
-const getSearchedCrime = (primaryType: string, description: string, location: string, searchRadius: string): any => {
+  const getSearchedCrime = (primaryType: string, description: string, location: string, searchRadius: string): any => {
 
-    // setting the zoom rate in the map based on the search radius
-    if (searchRadius) {
-      const zoomRatesBySearchRadiusSize: object = {
-        "1" : 14,
-        "5" : 12,
-        "10": 11,
-        "25": 10,
-        "50": 10,
-        "100": 10
-      }
-      console.log(zoomRatesBySearchRadiusSize[searchRadius])
-      setZoomRate(zoomRatesBySearchRadiusSize[searchRadius]);
+    if (primaryType === '' || date === null) {
+      window.alert('Please select both a Crime and Date before searching');
     } else {
-        setZoomRate(11);
-    }
 
-    // conditionals for rendering each dropdown as optional
-    if (description !== '') {
-      description = "&description= " + description;
-    }
-
-
-    // setting the default search radius
-    let longitude = -87.6243;
-    let latitude = 41.8757;
-    let easternmostLongitude = longitude + 0.015 * parseInt(searchRadius);
-    let westernmostLongitude = longitude - 0.015 * parseInt(searchRadius);
-    let northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
-    let southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
-    let newDate = date.toISOString().slice(0,10);
-
-    // Calling both APIs
-    var requestOptions = {
-      method: "GET",
-    };
-
-    fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${location}+Chicago+IL&apiKey=${geocodeToken.geocodeToken}`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-
-        longitude = result.features[0].properties.lon;
-        latitude = result.features[0].properties.lat;
-
-        setMapCenter([latitude, longitude]);
-
-        let geoAppifyResult = {
-          easternmostLongitude: longitude + 0.015 * parseInt(searchRadius),
-          westernmostLongitude: longitude - 0.015 * parseInt(searchRadius),
-          northernmostLatitude: latitude + 0.015 * parseInt(searchRadius),
-          southernmostLatitude: latitude - 0.015 * parseInt(searchRadius)
+      // setting the zoom rate in the map based on the search radius
+      if (searchRadius) {
+        const zoomRatesBySearchRadiusSize: object = {
+          "1": 14,
+          "5": 12,
+          "10": 11,
+          "25": 10,
+          "50": 10,
+          "100": 10
         }
-        return geoAppifyResult;
-      })
-      .then(geoAppifyResult => {
-        const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
-        return result;
+        // console.log(zoomRatesBySearchRadiusSize[searchRadius])
+        setZoomRate(zoomRatesBySearchRadiusSize[searchRadius]);
+      } else {
+        setZoomRate(11);
+      }
 
+      // conditionals for rendering each dropdown as optional
+      if (description !== '') {
+        description = "&description=" + description;
+      }
+      if (location !== '') {
+        location = location + '+';
+      }
 
-        // const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
-        // console.log('for terri', result);
-        // return result;
-        // &$where=date >= ${newDate}'T00:00:00.000' AND date <= ${newDate}'T23:59:59.999'
-      })
-      .then(response => response.json())
-      .then(result => {
-        console.log('for charles', result);
-        setCrimes(result);
-        return result;
+      // setting the default search radius
+      let longitude = -87.6243;
+      let latitude = 41.8757;
 
-      })
-      .catch(error => console.log('error', error));
+      // these look unused, they're declared inside geoAppifyResult in second .then block
+      let easternmostLongitude = longitude + 0.015 * parseInt(searchRadius);
+      let westernmostLongitude = longitude - 0.015 * parseInt(searchRadius);
+      let northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
+      let southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
+      let newDate = date.toISOString().slice(0, 10);
+      console.log('newDate: ', newDate);
+
+      // Calling both APIs
+      var requestOptions = {
+        method: "GET",
+      };
+
+      fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${location}Chicago+IL&apiKey=${geocodeToken.geocodeToken}`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+
+          longitude = result.features[0].properties.lon;
+          latitude = result.features[0].properties.lat;
+
+          setMapCenter([latitude, longitude]);
+
+          let geoAppifyResult = {
+            easternmostLongitude: longitude + 0.015 * parseInt(searchRadius),
+            westernmostLongitude: longitude - 0.015 * parseInt(searchRadius),
+            northernmostLatitude: latitude + 0.015 * parseInt(searchRadius),
+            southernmostLatitude: latitude - 0.015 * parseInt(searchRadius)
+          }
+          return geoAppifyResult;
+        })
+        .then(geoAppifyResult => {
+          // TODO: latitude and longitude are NaN
+          // const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
+          const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
+          return result;
+        })
+        .then(response => response.json())
+        .then(result => {
+          setCrimes(result);
+          return result;
+
+        })
+        .catch(error => console.log('error', error));
+    }
   }
 
   useEffect(() => {
@@ -710,29 +715,29 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
           <option value="100">100 miles</option>
         </select>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-        label="Select Date"
-        value={date}
-        onChange={(newValue) => {
-        console.log(newValue.toISOString());
-        setDate(newValue);
-        }}
-      renderInput={(params) => <TextField {...params} />}
-      />
-      </LocalizationProvider>
-      <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
+          <DatePicker
+            label="Select Date"
+            value={date}
+            onChange={(newValue) => {
+              // console.log(newValue.toISOString());
+              setDate(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+        <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
         <Modal
-        open={open}
-        onBackdropClick={() => setOpen(false)}
-      >
-         <Box sx={{ width: 200 }}>
-          <p id="modal-text">
-          We allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.'
-          </p>
+          open={open}
+          onBackdropClick={() => setOpen(false)}
+        >
+          <Box sx={{ width: 200 }}>
+            <p id="modal-text">
+              We allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.'
+            </p>
           </Box>
-      </Modal>
+        </Modal>
         <button className="search-icon" onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}>Search</button>
-    </div>
+      </div>
     </>
   )
 }

@@ -34,8 +34,8 @@ interface CrimeSample {
 const CrimeMap = () => {
   const { crimes, mapCenter, zoomRate } = useContext(CrimesContext) // this is how we grab the context for rendering
   //array containing crimes that fit the user's entered criteria
-  console.log("mapCenter from context in the map component", mapCenter)
-  console.log("Zoom rate from context in the map component", zoomRate);
+  // console.log("mapCenter from context in the map component", mapCenter)
+  // console.log("Zoom rate from context in the map component", zoomRate);
 
   // const refreshMap = useMemo(() => {
   //   return
