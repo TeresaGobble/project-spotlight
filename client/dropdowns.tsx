@@ -24,7 +24,12 @@ const Dropdowns = () => {
   const [description, setDescription] = useState("");
   const [searchRadius, setSearchRadius] = useState("");
   const [date, setDate]= React.useState<Date | null>(null);
-  const [open, setOpen] = React.useState(false);
+  const [openDate, setOpenDate] = React.useState(false);
+  const [openCrime, setOpenCrime] = React.useState(false);
+  const [openSub, setOpenSub] = React.useState(false);
+  const [openLocation, setOpenLocation] = React.useState(false);
+  const [openRadius, setOpenRadius] = React.useState(false);
+  // create unique states for every modal :'))
 
   // date functionality notes:
   // - only look at first ten characters when matching with API (is there a SOQL way to say "if includes" or "contains")
@@ -596,17 +601,11 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
         return geoAppifyResult;
       })
       .then(geoAppifyResult => {
-        console.log('FIRST', `https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "2015-09-06T00:00:00.000" AND date <= "2015-09-06T23:59:59.999"`)
-
-
         const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
-        console.log('for terri', result);
         return result;
-        // &$where=date >= ${newDate}'T00:00:00.000' AND date <= ${newDate}'T23:59:59.999'
       })
       .then(response => response.json())
       .then(result => {
-        console.log('for charles', result);
         setCrimes(result);
         return result;
 
@@ -630,27 +629,65 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
       <div className="name-and-info-section">
         <div className="name-and-info-item">
           <div>Location  </div>
-          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
-        </div>
+            <Button className="location-limitations" onClick={() => setOpenLocation(true)}> ? </Button>
+            <Modal open={openLocation}>
+              <Box className="location-box" sx={{ width: 200 }} onMouseLeave={() => setOpenLocation(false)}>
+                <p id="modal-text">
+                  This can be as specific as an address or as broad as a zipcode!
+                </p>
+              </Box>
+            </Modal>
+          </div>
 
         <div className="name-and-info-item">
           <div>Crime  </div>
-          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+          <Button className="crime-limitations" onClick={() => setOpenCrime(true)}> ? </Button>
+            <Modal open={openCrime}>
+              <Box className="crime-box" sx={{ width: 200 }} onMouseLeave={() => setOpenCrime(false)}>
+                <p id="modal-text">
+                  Required Category.
+                  This is a list of every "primary type" of crime as defined by the city of Chicago.
+                </p>
+              </Box>
+            </Modal>
         </div>
 
         <div className="name-and-info-item">
           <div>Subcategory  </div>
-          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+          <Button className="subcategory-limitations" onClick={() => setOpenSub(true)}> ? </Button>
+            <Modal open={openSub}>
+              <Box className="sub-box" sx={{ width: 200 }} onMouseLeave={() => setOpenSub(false)}>
+                <p id="modal-text">
+                  This list reflects the subcategories of your chosen crime category.
+                </p>
+              </Box>
+            </Modal>
         </div>
 
         <div className="name-and-info-item">
           <div>Search Area  </div>
-          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+          <Button className="radius-limitations" onClick={() => setOpenRadius(true)}> ? </Button>
+            <Modal open={openRadius}>
+              <Box className="radius-box" sx={{ width: 200 }} onMouseLeave={() => setOpenRadius(false)}>
+                <p id="modal-text">
+                  If no search radius is chosen, the map will automatically populate results within a 1 mile radius.
+                </p>
+              </Box>
+            </Modal>
         </div>
 
         <div className="name-and-info-item">
           <div>Date  </div>
-          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+          <Button className="date-limitations" onMouseEnter={() => setOpenDate(true)}> ? </Button>
+            <Modal open={openDate}>
+              <Box className="date-box" sx={{ width: 200 }} onMouseLeave={() => setOpenDate(false)}>
+                <p id="modal-text">
+                  Required Category.
+                  All crimes are added to our dataset 7 days after initial reporting.
+                  Thank you for your patience!
+                </p>
+              </Box>
+            </Modal>
         </div>
       </div>
       <div className="dropdown-selections">
@@ -717,7 +754,7 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
       renderInput={(params) => <TextField {...params} />}
       />
       </LocalizationProvider>
-      <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
+      {/* <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
         <Modal
         open={open}
         onBackdropClick={() => setOpen(false)}
@@ -727,7 +764,7 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
           We allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.'
           </p>
           </Box>
-      </Modal>
+      </Modal> */}
         <button className="search-icon" onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}>Search</button>
     </div>
     </>
