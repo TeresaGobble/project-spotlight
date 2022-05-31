@@ -49,14 +49,6 @@ const Footer = () => {
     window.open('https://www.linkedin.com/in/teresa-gobble/');
   }
 
-  // const showDropdown = () => {
-  //   document.getElementById("dd").style.display="block";
-  // }
-
-  // const hideDropdown = () => {
-  //   document.getElementById("dd").style.display="none";
-  // }
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -74,17 +66,8 @@ const Footer = () => {
   };
 
   return (
-    <div className="footer">
-        {/* <button style={{ padding: '5px', margin: '15px' }} onMouseEnter={showDropdown} >About the Creators</button>
-        <div id="dd" style={{display: "none", position: "relative", backgroundColor: "#F1F1F1", minWidth: "126px", zIndex: "1", boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)"}}>
-          <a href="https://www.linkedin.com/in/yellowstrings/" style={{border: "black 3px"}}>Anisah Majeed</a>
-          <br></br>
-          <a href="https://www.linkedin.com/in/charles-wilshire/">Charles Wilshire</a>
-          <br></br>
-          <a href="https://www.linkedin.com/in/teresa-gobble/">Teresa Gobble</a>
-        </div> */}
-        <div>
-          <button className="modal-creators" onClick={handleOpen}>About the Creators</button>
+    <div className="footer"> <div>
+        <button className="modal-creators" onClick={handleOpen}>About the Creators</button>
           <Modal
             open={open}
             onClose={handleClose}

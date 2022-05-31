@@ -33,13 +33,6 @@ interface CrimeSample {
 
 const CrimeMap = () => {
   const { crimes, mapCenter, zoomRate } = useContext(CrimesContext) // this is how we grab the context for rendering
-  //array containing crimes that fit the user's entered criteria
-  // console.log("mapCenter from context in the map component", mapCenter)
-  // console.log("Zoom rate from context in the map component", zoomRate);
-
-  // const refreshMap = useMemo(() => {
-  //   return
-  // }, [zoomRate]);
 
 
 
@@ -49,13 +42,10 @@ const CrimeMap = () => {
 
     return null;
   }
-  // const onChange = e => {
-  // };
-  // onChange={onchange} value={mapCenter}
 
   return (
     <>
-<MapContainer center={mapCenter} zoom={zoomRate} scrollWheelZoom={false}>
+    <MapContainer center={mapCenter} zoom={zoomRate} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -77,58 +67,3 @@ const CrimeMap = () => {
 }
 
 export default CrimeMap;
-
-// {crimesArr.map((crime) => {
-  //   <Marker position={[crime.latitude, crime.longitude]}>
-  //     <Popup>
-  //       {crime.primaryType}<br/> {crime.primaryType}
-  //     </Popup>
-  //   </Marker>
-  // })}
-
-  // {crimesArr.map((crime: any, key) => {
-    //   <Marker key={key} position={[crime.latitude, crime.longitude]}>
-    //     {/* <Popup>
-    //       {crime.primaryType}<br/>
-  //     </Popup> */}
-  //   </Marker>
-
-
-  //from the sample json
-  // const crimesArr: CrimeSample[] = [];
-  // for (let i = 0; i < crimes.features.length; i++) {
-  //   const crimeObj: CrimeSample = {
-  //     latitude: +crimes.features[i].properties.latitude,
-  //     longitude: +crimes.features[i].properties.longitude,
-  //     primaryType: crimes.features[i].properties.primary_type,
-  //     description: crimes.features[i].properties.description,
-  //   };
-  //   crimesArr.push(crimeObj);
-  // }
-
-
-  // locations of each piece of data in the object:
-  // const latitude: string = crimes.features[0].properties.latitude;
-  // const longitude: string = crimes.features[0].properties.longitude;
-  // const primaryType: string = crimes.features[0].properties.primary_type;
-  // const description: string = crimes.features[0].properties.description;
-
-  // console.log('latitude, longitude, description', latitude, longitude, description)
-
-
-  // const crimesArr: CrimeSample[] = [];
-  // for (let i = 0; i < crimes.features.length; i++) {
-  //   const crimeObj: CrimeSample = {
-  //     latitude: +crimes.features[i].properties.latitude,
-  //     longitude: +crimes.features[i].properties.longitude,
-  //     primaryType: crimes.features[i].properties.primary_type,
-  //     description: crimes.features[i].properties.description,
-  //   };
-  //   crimesArr.push(crimeObj);
-  // }
-  // if (long < x && long > y) {}
-
-
-  // console.log("crimesArr", crimesArr[0].description)
-  // crimes.features is an array of objects, each representing a crime
-  // const position: Array<number> | undefined = [51.505, -0.09] <--- need to make this dynamic

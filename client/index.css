@@ -241,12 +241,8 @@ tr:hover {
 /* FOOTER LINKS */
 
 .footer > * {
-  /* position: absolute; */
   width: 178px;
   height: 44px;
-  /* left: 741px;
-  top: 909px; */
-
   background: #C4C4C4;
   border-radius: 10px;
   border: none;
@@ -254,12 +250,8 @@ tr:hover {
 }
 
 .modal-creators {
-    /* position: absolute; */
     width: 178px;
     height: 44px;
-    /* left: 741px;
-    top: 909px; */
-
     background: #C4C4C4;
     border-radius: 10px;
     border: none;
