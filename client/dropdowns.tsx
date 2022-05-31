@@ -19,9 +19,11 @@ const Dropdowns = () => {
 
   const crimes: any[] = [];
 
+
   const [location, setLocation] = useState("");
   const [primaryType, setPrimaryType] = useState("");
   const [description, setDescription] = useState("");
+<<<<<<< HEAD
   const [searchRadius, setSearchRadius] = useState("");
   const [date, setDate]= React.useState<Date | null>(null);
   const [openDate, setOpenDate] = React.useState(false);
@@ -30,6 +32,12 @@ const Dropdowns = () => {
   const [openLocation, setOpenLocation] = React.useState(false);
   const [openRadius, setOpenRadius] = React.useState(false);
   // create unique states for every modal :'))
+=======
+  const [searchRadius, setSearchRadius] = useState("5");
+  const [startDate, setStartDate] = React.useState<Date | null>(null);
+  const [endDate, setEndDate] = React.useState<Date | null>(null);
+  const [open, setOpen] = React.useState(false);
+>>>>>>> experimental-2
 
   // date functionality notes:
   // - only look at first ten characters when matching with API (is there a SOQL way to say "if includes" or "contains")
@@ -536,7 +544,7 @@ const Dropdowns = () => {
   };
 
   const subcategoryOptions = useMemo(() => {
-    console.log("primaryType inside useMemo: ", primaryType)
+    // console.log("primaryType inside useMemo: ", primaryType)
     if (primaryType !== '') {
       return crimeInfo[primaryType];
     } else {
@@ -544,60 +552,25 @@ const Dropdowns = () => {
     }
   }, [primaryType]);
 
-  console.log("subcategoryOptions: ", subcategoryOptions);
+  // console.log("subcategoryOptions: ", subcategoryOptions);
 
-const getSearchedCrime = (primaryType: string, description: string, location: string, searchRadius: string): any => {
+  const getSearchedCrime = (primaryType: string, description: string, location: string, searchRadius: string): any => {
 
-    // setting the zoom rate in the map based on the search radius
-    if (searchRadius) {
-      const zoomRatesBySearchRadiusSize: object = {
-        "1" : 14,
-        "5" : 12,
-        "10": 11,
-        "25": 10,
-        "50": 10,
-        "100": 10
-      }
-      console.log(zoomRatesBySearchRadiusSize[searchRadius])
-      setZoomRate(zoomRatesBySearchRadiusSize[searchRadius]);
+    if (primaryType === '' || startDate === null || endDate === null) {
+      window.alert('Please select both a Crime and Date before searching');
     } else {
-        setZoomRate(11);
-    }
 
-    // conditionals for rendering each dropdown as optional
-    // if (description === '') {
-    //   description = "*";
-    // }
-
-    // setting the default search radius
-    let longitude = -87.6243;
-    let latitude = 41.8757;
-    let easternmostLongitude = longitude + 0.015 * parseInt(searchRadius);
-    let westernmostLongitude = longitude - 0.015 * parseInt(searchRadius);
-    let northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
-    let southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
-    let newDate = date.toISOString().slice(0,10);
-
-    // Calling both APIs
-    var requestOptions = {
-      method: "GET",
-    };
-
-    fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${location}+Chicago+IL&apiKey=${geocodeToken.geocodeToken}`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-
-        longitude = result.features[0].properties.lon;
-        latitude = result.features[0].properties.lat;
-
-        setMapCenter([latitude, longitude]);
-
-        let geoAppifyResult = {
-          easternmostLongitude: longitude + 0.015 * parseInt(searchRadius),
-          westernmostLongitude: longitude - 0.015 * parseInt(searchRadius),
-          northernmostLatitude: latitude + 0.015 * parseInt(searchRadius),
-          southernmostLatitude: latitude - 0.015 * parseInt(searchRadius)
+      // setting the zoom rate in the map based on the search radius
+      if (searchRadius) {
+        const zoomRatesBySearchRadiusSize: object = {
+          "1": 14,
+          "5": 12,
+          "10": 11,
+          "25": 10,
+          "50": 10,
+          "100": 10
         }
+<<<<<<< HEAD
         return geoAppifyResult;
       })
       .then(geoAppifyResult => {
@@ -608,9 +581,71 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
       .then(result => {
         setCrimes(result);
         return result;
+=======
+        // console.log(zoomRatesBySearchRadiusSize[searchRadius])
+        setZoomRate(zoomRatesBySearchRadiusSize[searchRadius]);
+      } else {
+        setZoomRate(11);
+      }
 
-      })
-      .catch(error => console.log('error', error));
+      // conditionals for rendering each dropdown as optional
+      if (description !== '') {
+        description = "&description=" + description;
+      }
+      if (location !== '') {
+        location = location + '+';
+      }
+>>>>>>> experimental-2
+
+      // setting the default search radius
+      let longitude = -87.6243;
+      let latitude = 41.8757;
+
+      // these look unused, they're declared inside geoAppifyResult in second .then block
+      let easternmostLongitude = longitude + 0.015 * parseInt(searchRadius);
+      let westernmostLongitude = longitude - 0.015 * parseInt(searchRadius);
+      let northernmostLatitude = latitude + 0.015 * parseInt(searchRadius);
+      let southernmostLatitude = latitude - 0.015 * parseInt(searchRadius);
+      let newStartDate = startDate.toISOString().slice(0, 10);
+      let newEndDate = endDate.toISOString().slice(0, 10);
+      // console.log('newDate: ', newDate);
+
+      // Calling both APIs
+      var requestOptions = {
+        method: "GET",
+      };
+
+      fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${location}Chicago+IL&apiKey=${geocodeToken.geocodeToken}`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+
+          longitude = result.features[0].properties.lon;
+          latitude = result.features[0].properties.lat;
+
+          setMapCenter([latitude, longitude]);
+
+          let geoAppifyResult = {
+            easternmostLongitude: longitude + 0.015 * parseInt(searchRadius),
+            westernmostLongitude: longitude - 0.015 * parseInt(searchRadius),
+            northernmostLatitude: latitude + 0.015 * parseInt(searchRadius),
+            southernmostLatitude: latitude - 0.015 * parseInt(searchRadius)
+          }
+          return geoAppifyResult;
+        })
+        .then(geoAppifyResult => {
+          // TODO: latitude and longitude are NaN
+          // const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
+          const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newStartDate}T00:00:00.000" AND date <= "${newEndDate}T23:59:59.999"`)
+          return result;
+        })
+        .then(response => response.json())
+        .then(result => {
+          setCrimes(result);
+          return result;
+
+        })
+        .catch(error => console.log('error', error));
+    }
   }
 
   useEffect(() => {
@@ -624,11 +659,25 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
       });
   }, []);
 
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: 336,
+    left: 1136,
+    width: 303,
+    transform: 'translate(-50%, -50%)',
+    bgcolor: 'background.paper',
+    border: '2px solid #a9a9a9',
+    boxShadow: 24,
+    p: 4,
+    borderRadius: '10px'
+  };
+
   return (
     <>
       <div className="name-and-info-section">
         <div className="name-and-info-item">
           <div>Location  </div>
+<<<<<<< HEAD
             <Button className="location-limitations" onClick={() => setOpenLocation(true)}> ? </Button>
             <Modal open={openLocation}>
               <Box className="location-box" onMouseLeave={() => setOpenLocation(false)}>
@@ -650,10 +699,19 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
                 </p>
               </Box>
             </Modal>
+=======
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
+        </div>
+
+        <div className="name-and-info-item">
+          <div>Crime  </div>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
+>>>>>>> experimental-2
         </div>
 
         <div className="name-and-info-item">
           <div>Subcategory  </div>
+<<<<<<< HEAD
           <Button className="subcategory-limitations" onClick={() => setOpenSub(true)}> ? </Button>
             <Modal open={openSub}>
               <Box className="sub-box" sx={{ width: 200 }} onMouseLeave={() => setOpenSub(false)}>
@@ -662,10 +720,14 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
                 </p>
               </Box>
             </Modal>
+=======
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
+>>>>>>> experimental-2
         </div>
 
         <div className="name-and-info-item">
           <div>Search Area  </div>
+<<<<<<< HEAD
           <Button className="radius-limitations" onClick={() => setOpenRadius(true)}> ? </Button>
             <Modal open={openRadius}>
               <Box className="radius-box" sx={{ width: 200 }} onMouseLeave={() => setOpenRadius(false)}>
@@ -674,10 +736,14 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
                 </p>
               </Box>
             </Modal>
+=======
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
+>>>>>>> experimental-2
         </div>
 
         <div className="name-and-info-item">
           <div>Date  </div>
+<<<<<<< HEAD
           <Button className="date-limitations" onMouseEnter={() => setOpenDate(true)}> ? </Button>
             <Modal open={openDate}>
               <Box className="date-box" sx={{ width: 200 }} onMouseLeave={() => setOpenDate(false)}>
@@ -688,6 +754,9 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
                 </p>
               </Box>
             </Modal>
+=======
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
+>>>>>>> experimental-2
         </div>
       </div>
       <div className="dropdown-selections">
@@ -743,6 +812,7 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
           <option value="50">50 miles</option>
           <option value="100">100 miles</option>
         </select>
+<<<<<<< HEAD
         <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
         label="Select Date"
@@ -755,23 +825,62 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
       />
       </LocalizationProvider>
       {/* <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
-        <Modal
-        open={open}
-        onBackdropClick={() => setOpen(false)}
-      >
-         <Box sx={{ width: 200 }}>
-          <p id="modal-text">
-          We allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.'
-          </p>
+=======
+        <button className="date-button" placeholder="Select Date" onClick={() => setOpen(true)}>Select Date Range...</button>
+        <Modal className="modal-creators"
+          open={open}
+          onBackdropClick={() => setOpen(false)}
+        >
+          <Box sx={style} >
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Select Start Date"
+                value={startDate}
+                onChange={(newValue) => {
+                  // console.log(newValue.toISOString());
+                  setStartDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Select End Date"
+                value={endDate}
+                onChange={(newValue) => {
+                  // console.log(newValue.toISOString());
+                  setEndDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
           </Box>
+        </Modal>
+        {/* <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
+>>>>>>> experimental-2
+        <Modal
+          open={open}
+          onBackdropClick={() => setOpen(false)}
+        >
+          <Box sx={{ width: 200 }}>
+            <p id="modal-text">
+              We allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.'
+            </p>
+          </Box>
+<<<<<<< HEAD
       </Modal> */}
         <button className="search-icon" onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}>Search</button>
     </div>
+=======
+        </Modal> */}
+        <img className="search-icon" alt="magnifying glass" src="https://i.imgur.com/LLgt3ke.png" onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}></img>
+      </div>
+>>>>>>> experimental-2
     </>
   )
 }
 
 export default Dropdowns;
 
-/* <img className="search-icon" alt="magnifying glass" src="https://i.imgur.com/dCoTssr.png"></img>
+/* <img className="search-icon" alt="magnifying glass" src="https://i.imgur.com/LLgt3ke.png"></img>
 style="background: url(myimage.png)"  */
