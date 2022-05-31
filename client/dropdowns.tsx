@@ -23,8 +23,6 @@ const Dropdowns = () => {
   const [location, setLocation] = useState("");
   const [primaryType, setPrimaryType] = useState("");
   const [description, setDescription] = useState("");
-<<<<<<< HEAD
-  const [searchRadius, setSearchRadius] = useState("");
   const [date, setDate]= React.useState<Date | null>(null);
   const [openDate, setOpenDate] = React.useState(false);
   const [openCrime, setOpenCrime] = React.useState(false);
@@ -32,12 +30,10 @@ const Dropdowns = () => {
   const [openLocation, setOpenLocation] = React.useState(false);
   const [openRadius, setOpenRadius] = React.useState(false);
   // create unique states for every modal :'))
-=======
   const [searchRadius, setSearchRadius] = useState("5");
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
   const [open, setOpen] = React.useState(false);
->>>>>>> experimental-2
 
   // date functionality notes:
   // - only look at first ten characters when matching with API (is there a SOQL way to say "if includes" or "contains")
@@ -570,18 +566,6 @@ const Dropdowns = () => {
           "50": 10,
           "100": 10
         }
-<<<<<<< HEAD
-        return geoAppifyResult;
-      })
-      .then(geoAppifyResult => {
-        const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}&description=${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
-        return result;
-      })
-      .then(response => response.json())
-      .then(result => {
-        setCrimes(result);
-        return result;
-=======
         // console.log(zoomRatesBySearchRadiusSize[searchRadius])
         setZoomRate(zoomRatesBySearchRadiusSize[searchRadius]);
       } else {
@@ -595,7 +579,6 @@ const Dropdowns = () => {
       if (location !== '') {
         location = location + '+';
       }
->>>>>>> experimental-2
 
       // setting the default search radius
       let longitude = -87.6243;
@@ -633,8 +616,7 @@ const Dropdowns = () => {
           return geoAppifyResult;
         })
         .then(geoAppifyResult => {
-          // TODO: latitude and longitude are NaN
-          // const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newDate}T00:00:00.000" AND date <= "${newDate}T23:59:59.999"`)
+
           const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newStartDate}T00:00:00.000" AND date <= "${newEndDate}T23:59:59.999"`)
           return result;
         })
@@ -677,8 +659,7 @@ const Dropdowns = () => {
       <div className="name-and-info-section">
         <div className="name-and-info-item">
           <div>Location  </div>
-<<<<<<< HEAD
-            <Button className="location-limitations" onClick={() => setOpenLocation(true)}> ? </Button>
+            <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => setOpenLocation(true)}></img>
             <Modal open={openLocation}>
               <Box className="location-box" onMouseLeave={() => setOpenLocation(false)}>
                 <p id="modal-text">
@@ -690,7 +671,7 @@ const Dropdowns = () => {
 
         <div className="name-and-info-item">
           <div>Crime  </div>
-          <Button className="crime-limitations" onClick={() => setOpenCrime(true)}> ? </Button>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => setOpenCrime(true)}></img>
             <Modal open={openCrime}>
               <Box className="crime-box" sx={{ width: 200 }} onMouseLeave={() => setOpenCrime(false)}>
                 <p id="modal-text">
@@ -699,20 +680,11 @@ const Dropdowns = () => {
                 </p>
               </Box>
             </Modal>
-=======
-          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
-        </div>
-
-        <div className="name-and-info-item">
-          <div>Crime  </div>
-          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
->>>>>>> experimental-2
         </div>
 
         <div className="name-and-info-item">
           <div>Subcategory  </div>
-<<<<<<< HEAD
-          <Button className="subcategory-limitations" onClick={() => setOpenSub(true)}> ? </Button>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => setOpenSub(true)}></img>
             <Modal open={openSub}>
               <Box className="sub-box" sx={{ width: 200 }} onMouseLeave={() => setOpenSub(false)}>
                 <p id="modal-text">
@@ -720,15 +692,11 @@ const Dropdowns = () => {
                 </p>
               </Box>
             </Modal>
-=======
-          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
->>>>>>> experimental-2
         </div>
 
         <div className="name-and-info-item">
           <div>Search Area  </div>
-<<<<<<< HEAD
-          <Button className="radius-limitations" onClick={() => setOpenRadius(true)}> ? </Button>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => setOpenRadius(true)}></img>
             <Modal open={openRadius}>
               <Box className="radius-box" sx={{ width: 200 }} onMouseLeave={() => setOpenRadius(false)}>
                 <p id="modal-text">
@@ -736,15 +704,11 @@ const Dropdowns = () => {
                 </p>
               </Box>
             </Modal>
-=======
-          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
->>>>>>> experimental-2
         </div>
 
         <div className="name-and-info-item">
           <div>Date  </div>
-<<<<<<< HEAD
-          <Button className="date-limitations" onMouseEnter={() => setOpenDate(true)}> ? </Button>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => setOpenDate(true)}></img>
             <Modal open={openDate}>
               <Box className="date-box" sx={{ width: 200 }} onMouseLeave={() => setOpenDate(false)}>
                 <p id="modal-text">
@@ -754,9 +718,6 @@ const Dropdowns = () => {
                 </p>
               </Box>
             </Modal>
-=======
-          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
->>>>>>> experimental-2
         </div>
       </div>
       <div className="dropdown-selections">
@@ -812,20 +773,6 @@ const Dropdowns = () => {
           <option value="50">50 miles</option>
           <option value="100">100 miles</option>
         </select>
-<<<<<<< HEAD
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-        label="Select Date"
-        value={date}
-        onChange={(newValue) => {
-        console.log(newValue.toISOString());
-        setDate(newValue);
-        }}
-      renderInput={(params) => <TextField {...params} />}
-      />
-      </LocalizationProvider>
-      {/* <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
-=======
         <button className="date-button" placeholder="Select Date" onClick={() => setOpen(true)}>Select Date Range...</button>
         <Modal className="modal-creators"
           open={open}
@@ -857,7 +804,6 @@ const Dropdowns = () => {
           </Box>
         </Modal>
         {/* <Button className="dropdown-limitations" onMouseOver={() => setOpen(true)}> ? </Button>
->>>>>>> experimental-2
         <Modal
           open={open}
           onBackdropClick={() => setOpen(false)}
@@ -867,20 +813,11 @@ const Dropdowns = () => {
               We allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.'
             </p>
           </Box>
-<<<<<<< HEAD
-      </Modal> */}
-        <button className="search-icon" onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}>Search</button>
-    </div>
-=======
         </Modal> */}
         <img className="search-icon" alt="magnifying glass" src="https://i.imgur.com/LLgt3ke.png" onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}></img>
       </div>
->>>>>>> experimental-2
     </>
   )
 }
 
 export default Dropdowns;
-
-/* <img className="search-icon" alt="magnifying glass" src="https://i.imgur.com/LLgt3ke.png"></img>
-style="background: url(myimage.png)"  */

@@ -22,15 +22,10 @@ width: 406px;
 height: 59px;
 left: 546px;
 top: 26px;
-/* top: 46px; */
-
-/* font-family: 'Montserrat'; */
 font-style: normal;
 font-weight: 250;
 font-size: 48px;
 line-height: 59px;
-/* identical to box height */
-
 display: flex;
 align-items: center;
 text-align: center;
@@ -39,16 +34,6 @@ color: #3D302D;
 
 
 }
-
-/* .binoculars {
-  position: absolute;
-  width: 75px;
-  height: 74px;
-  left: 460px;
-  top: 40px;
-
-  background: url(.png); NEED TO GET IMAGE LOCATION
-} */
 
 /* AUTHENTICATION (has been pushed to the side for now- is adding to modal pop-out */
 
@@ -78,9 +63,6 @@ height: 141px;
 left: 48px;
 top: 140px;
 padding: 0 40px;
-/* left: calc(50% - 1336px/2);
-top: calc(50% - 141px/2 - 311.5px); */
-
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 10px;
 background: #E9E1DF;
@@ -133,76 +115,63 @@ background: #E9E1DF;
   background-color: white;
 }
 
-
 .dropdown-limitations {
-  background:rgba(36, 35, 35, 0.85);
-  color: #fff;
-  border-radius: 50%;
   width: 21px;
   height: 45px;
   transform: translateY(-12px);
-  line-height: 10px;
-  text-align: center;
-  font-size: 10px;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> experimental-2
-  font-family: Verdana;
-  font-weight: bolder
 }
 
 .location-box {
   position: relative;
-  /* padding: 400px; */
   left: 8%;
   top: 18%;
   width: 200px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
   background: whitesmoke
 }
 
 .crime-box {
+  position: relative;
+  left: 25%;
+  top: 18%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
   background: whitesmoke
 }
 
 .sub-box {
+  position: relative;
+  left: 40%;
+  top: 18%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
   background: whitesmoke
 }
 
 .radius-box {
+  position: relative;
+  left: 52%;
+  top: 18%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
   background: whitesmoke
 }
 
 .date-box {
-<<<<<<< HEAD
-  background: whitesmoke
-=======
-=======
->>>>>>> experimental-2
+  position: relative;
+  left: 65%;
+  top: 18%;
   font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
   image-rendering: url(https://i.imgur.com/qDvTXf9.png);
   background: whitesmoke
 }
 
-.search-icon{
+.search-icon {
   color: #fff;
   image-rendering: url(https://i.imgur.com/dCoTssr.png);
->>>>>>> experimental-2
 }
-
-/* .search-icon {
-  background: url(https://i.imgur.com/dCoTssr.png)
-   background: url(https://i.imgur.com/qDvTXf9.png);
-} */
-
-/* #dropdown-set-primary-type {
-  position: relative;
-  width: 250px;
-  height: 273px;
-  left: 305px;
-  top: 146px;
-} */
 
 /* MAP */
 
@@ -295,40 +264,6 @@ tr:hover {
     border-radius: 10px;
     border: none;
 }
-
-/* .footer-csv-download {
-  position: absolute;
-  width: 178px;
-  height: 44px;
-  left: 741px;
-  top: 909px;
-
-  background: #C4C4C4;
-  border-radius: 10px;
-}
-
-.footer-data-source {
-  position: absolute;
-  width: 179px;
-  height: 44px;
-  left: 960px;
-  top: 909px;
-
-  background: #C4C4C4;
-  border-radius: 10px;
-}
-
-.footer-everest-github {
-  position: absolute;
-  width: 179px;
-  height: 44px;
-  left: 1181px;
-  top: 909px;
-
-  background: #C4C4C4;
-  border-radius: 10px;
-} */
-
 
 .note {
   left: 55px;
