@@ -132,11 +132,15 @@ background: #E9E1DF;
   text-align: center;
   font-size: 10px;
   font-family: Verdana;
-  font-weight: bolder;
+  font-weight: bolder
 }
 
 .location-box {
   position: relative;
+  /* padding: 400px; */
+  left: 8%;
+  top: 18%;
+  width: 200px;
   background: whitesmoke
 }
 

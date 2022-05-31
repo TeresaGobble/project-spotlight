@@ -631,7 +631,7 @@ const getSearchedCrime = (primaryType: string, description: string, location: st
           <div>Location  </div>
             <Button className="location-limitations" onClick={() => setOpenLocation(true)}> ? </Button>
             <Modal open={openLocation}>
-              <Box className="location-box" sx={{ width: 200 }} onMouseLeave={() => setOpenLocation(false)}>
+              <Box className="location-box" onMouseLeave={() => setOpenLocation(false)}>
                 <p id="modal-text">
                   This can be as specific as an address or as broad as a zipcode!
                 </p>
