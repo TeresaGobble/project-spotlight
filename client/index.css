@@ -135,17 +135,19 @@ background: #E9E1DF;
 
 
 .dropdown-limitations {
-  /* background:rgba(36, 35, 35, 0.85);
+  background:rgba(36, 35, 35, 0.85);
   color: #fff;
-  border-radius: 50%; */
+  border-radius: 50%;
   width: 21px;
   height: 45px;
   transform: translateY(-12px);
-  /*
   line-height: 10px;
   text-align: center;
   font-size: 10px;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> experimental-2
   font-family: Verdana;
   font-weight: bolder
 }
@@ -172,11 +174,15 @@ background: #E9E1DF;
 }
 
 .date-box {
+<<<<<<< HEAD
   background: whitesmoke
 =======
+=======
+>>>>>>> experimental-2
   font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
-  image-rendering: url(https://i.imgur.com/qDvTXf9.png); */
+  image-rendering: url(https://i.imgur.com/qDvTXf9.png);
+  background: whitesmoke
 }
 
 .search-icon{
