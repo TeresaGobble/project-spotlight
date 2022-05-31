@@ -653,27 +653,27 @@ const Dropdowns = () => {
       <div className="name-and-info-section">
         <div className="name-and-info-item">
           <div>Location  </div>
-          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
         </div>
 
         <div className="name-and-info-item">
           <div>Crime  </div>
-          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
         </div>
 
         <div className="name-and-info-item">
           <div>Subcategory  </div>
-          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
         </div>
 
         <div className="name-and-info-item">
           <div>Search Area  </div>
-          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
         </div>
 
         <div className="name-and-info-item">
           <div>Date  </div>
-          <button className="dropdown-limitations" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}> ? </button>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
         </div>
       </div>
       <div className="dropdown-selections">
