@@ -770,7 +770,7 @@ const Dropdowns = () => {
             </p>
           </Box>
         </Modal> */}
-        <button className="search-icon" onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}>Search</button>
+        <img className="search-icon" alt="magnifying glass" src="https://i.imgur.com/LLgt3ke.png" onClick={() => getSearchedCrime(primaryType, description, location, searchRadius)}></img>
       </div>
     </>
   )
@@ -778,5 +778,5 @@ const Dropdowns = () => {
 
 export default Dropdowns;
 
-/* <img className="search-icon" alt="magnifying glass" src="https://i.imgur.com/dCoTssr.png"></img>
+/* <img className="search-icon" alt="magnifying glass" src="https://i.imgur.com/LLgt3ke.png"></img>
 style="background: url(myimage.png)"  */

@@ -147,6 +147,11 @@ background: #E9E1DF;
   font-weight: bolder;
 }
 
+.search-icon{
+  color: #fff;
+  image-rendering: url(https://i.imgur.com/LLgt3ke.png);
+}
+
 /* .search-icon {
   background: url(https://i.imgur.com/dCoTssr.png)
 } */
