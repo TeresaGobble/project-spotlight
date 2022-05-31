@@ -135,19 +135,45 @@ background: #E9E1DF;
 
 
 .dropdown-limitations {
-  /* background:rgba(36, 35, 35, 0.85);
+  background:rgba(36, 35, 35, 0.85);
   color: #fff;
-  border-radius: 50%; */
+  border-radius: 50%;
   width: 21px;
   height: 45px;
   transform: translateY(-12px);
-  /*
   line-height: 10px;
   text-align: center;
   font-size: 10px;
+  font-family: Verdana;
+  font-weight: bolder
+}
+
+.location-box {
+  position: relative;
+  /* padding: 400px; */
+  left: 8%;
+  top: 18%;
+  width: 200px;
+  background: whitesmoke
+}
+
+.crime-box {
+  background: whitesmoke
+}
+
+.sub-box {
+  background: whitesmoke
+}
+
+.radius-box {
+  background: whitesmoke
+}
+
+.date-box {
   font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
-  image-rendering: url(https://i.imgur.com/qDvTXf9.png); */
+  image-rendering: url(https://i.imgur.com/qDvTXf9.png);
+  background: whitesmoke
 }
 
 .search-icon{
