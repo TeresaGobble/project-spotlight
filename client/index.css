@@ -17,15 +17,16 @@ body {
 
 .title {
 position: absolute;
+font-family: 'Montserrat', sans-serif;
 width: 406px;
 height: 59px;
 left: 546px;
-top: 30px;
+top: 26px;
 /* top: 46px; */
 
-font-family: 'Montserrat';
+/* font-family: 'Montserrat'; */
 font-style: normal;
-font-weight: 400;
+font-weight: 250;
 font-size: 48px;
 line-height: 59px;
 /* identical to box height */
@@ -33,7 +34,9 @@ line-height: 59px;
 display: flex;
 align-items: center;
 text-align: center;
+/* color: #434343 */
 color: #3D302D;
+
 
 }
 
@@ -55,6 +58,7 @@ color: #3D302D;
   height: 110px;
   left: 1257px;
   top: 20px;
+  font-family: 'Montserrat', sans-serif;
 
   background: #E9E1DF;
   border-radius: 10px;
@@ -68,6 +72,7 @@ color: #3D302D;
 
 .dropdown {
 position: absolute;
+font-family: 'Montserrat', sans-serif;
 width: 1336px;
 height: 141px;
 left: 48px;
@@ -106,8 +111,9 @@ background: #E9E1DF;
   grid-template-columns: 1fr 1fr 1fr 1fr auto;
   grid-row: 1;
   border: none;
+  transform: translateY(5px);
   inline-size: fit-content;
-  grid-gap: 138px;
+  grid-gap: 117px;
 }
 
 .name-and-info-item {
@@ -131,12 +137,13 @@ background: #E9E1DF;
   background:rgba(36, 35, 35, 0.85);
   color: #fff;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-3px);
   line-height: 10px;
   text-align: center;
   font-size: 10px;
-  font-family: Verdana;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
 }
 
