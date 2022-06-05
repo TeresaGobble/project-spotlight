@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "rangav.vscode-thunder-client",
+    "orta.vscode-jest",
+    "vscode-icons-team.vscode-icons",
+    "yzhang.markdown-all-in-one",
+    "msjsdiag.debugger-for-chrome"
+  ]
+}
