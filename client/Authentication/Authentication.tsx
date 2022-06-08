@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-// need to ask charles for firebase API key
+
 import { auth } from "./firebase-config";
 import { Box, Button, Typography, Modal } from '@mui/material';
 
@@ -52,7 +52,6 @@ const Authentication = () => {
         loginEmail,
         loginPassword
       );
-      // console.log('user being logged in: ', user);
       let existingAccountEmail: any = user.user.email;
       setUserEmail(existingAccountEmail);
       let welcomeMessage: string = "Welcome back " + existingAccountEmail;
@@ -67,7 +66,6 @@ const Authentication = () => {
   const logout = async () => {
     try {
       signOut(auth);
-      // console.log('user being logged out: ', user);
       window.alert("Successfully logged out");
       setUserEmail("");
       // un-hide registration/login modal
