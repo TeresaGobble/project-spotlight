@@ -122,7 +122,9 @@ background: #E9E1DF;
   width: 200px;
   font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
-  background: whitesmoke
+  background: whitesmoke;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .crime-box {
@@ -131,7 +133,9 @@ background: #E9E1DF;
   top: 18%;
   font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
-  background: whitesmoke
+  background: whitesmoke;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .sub-box {
@@ -140,7 +144,9 @@ background: #E9E1DF;
   top: 18%;
   font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
-  background: whitesmoke
+  background: whitesmoke;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .radius-box {
@@ -149,7 +155,9 @@ background: #E9E1DF;
   top: 18%;
   font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
-  background: whitesmoke
+  background: whitesmoke;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .date-box {
@@ -159,7 +167,9 @@ background: #E9E1DF;
   font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
   image-rendering: url(https://i.imgur.com/qDvTXf9.png);
-  background: whitesmoke
+  background: whitesmoke;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .search-icon {
