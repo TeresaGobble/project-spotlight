@@ -35,8 +35,6 @@ export interface Crime {
   }
 }
 
-
-
 const App = () => {
   return (
     //note that CrimesContextProvider acts as a wrapper, and provides a shared global scope to all that are inside it no matter the nested level.

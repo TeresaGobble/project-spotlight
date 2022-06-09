@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { CrimesContext } from "./CrimesContext.js";
-
 import { Crime } from "./App";
 import { Box, Button, Typography, Modal } from '@mui/material';
 
@@ -49,14 +48,6 @@ const Footer = () => {
     window.open('https://www.linkedin.com/in/teresa-gobble/');
   }
 
-  // const showDropdown = () => {
-  //   document.getElementById("dd").style.display="block";
-  // }
-
-  // const hideDropdown = () => {
-  //   document.getElementById("dd").style.display="none";
-  // }
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -75,33 +66,25 @@ const Footer = () => {
 
   return (
     <div className="footer">
-        {/* <button style={{ padding: '5px', margin: '15px' }} onMouseEnter={showDropdown} >About the Creators</button>
-        <div id="dd" style={{display: "none", position: "relative", backgroundColor: "#F1F1F1", minWidth: "126px", zIndex: "1", boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)"}}>
-          <a href="https://www.linkedin.com/in/yellowstrings/" style={{border: "black 3px"}}>Anisah Majeed</a>
-          <br></br>
-          <a href="https://www.linkedin.com/in/charles-wilshire/">Charles Wilshire</a>
-          <br></br>
-          <a href="https://www.linkedin.com/in/teresa-gobble/">Teresa Gobble</a>
-        </div> */}
-        <div>
-          <button className="modal-creators" onClick={handleOpen}>About the Creators</button>
-          <Modal
-            open={open}
-            onClose={handleClose}
-          >
-            <Box sx={style}>
-              <div>
-                <Button size="large" id="modal-modal-title" component="h1" onClick={openAnisah}>Anisah Majeed</Button>
-                <br></br>
-                <Button size="large" id="modal-modal-title" component="h1" onClick={openCharles}>Charles Wilshire</Button>
-                <br></br>
-                <Button size="large" id="modal-modal-title" component="h1" onClick={openTeresa}>Teresa Gobble</Button>
-              </div>
-            </Box>
-          </Modal>
-        </div>
-        <button onClick={openChicago}>City of Chicago Crime Data</button>
-        <button onClick={get}>Download Search Results (.csv)</button>
+      <div>
+        <button className="modal-creators" onClick={handleOpen}>About the Creators</button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+        >
+          <Box sx={style}>
+            <div>
+              <Button size="large" id="modal-modal-title" component="h1" onClick={openAnisah}>Anisah Majeed</Button>
+              <br></br>
+              <Button size="large" id="modal-modal-title" component="h1" onClick={openCharles}>Charles Wilshire</Button>
+              <br></br>
+              <Button size="large" id="modal-modal-title" component="h1" onClick={openTeresa}>Teresa Gobble</Button>
+            </div>
+          </Box>
+        </Modal>
+      </div>
+      <button onClick={openChicago}>City of Chicago Crime Data</button>
+      <button onClick={get}>Download Search Results (.csv)</button>
     </div>
   )
 }
