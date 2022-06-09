@@ -1,4 +1,4 @@
-/* This ensures that all the items have padding and border included in their width and height https://www.w3schools.com/css/css3_box-sizing.asp */
+/* This ensures that all the items have padding and border included in their width and height */
 * {
   box-sizing: border-box;
 }
@@ -29,13 +29,11 @@ line-height: 59px;
 display: flex;
 align-items: center;
 text-align: center;
-/* color: #434343 */
 color: #3D302D;
-
 
 }
 
-/* AUTHENTICATION (has been pushed to the side for now- is adding to modal pop-out */
+/* AUTHENTICATION */
 
 .authentication {
   position: absolute;
@@ -48,8 +46,6 @@ color: #3D302D;
   background: #E9E1DF;
   border-radius: 10px;
 }
-
-/* DROPDOWNS - QUESTION: will this styling be replaced with the dropdown modal from material-UI? If so don't spend any time on this */
 
 .autocomplete-container {
   position: relative;
@@ -69,8 +65,6 @@ background: #E9E1DF;
 }
 
 .dropdown-selections {
-  /* position: relative; */
-  /* width: 234px; */
   height: fit-content;
   align-items: center;
   display: grid;
@@ -81,8 +75,6 @@ background: #E9E1DF;
 .date-button {
   width: 200px !important;
 }
-
-/* this next piece will override the dropdown selections ALL (*) IMMEDIATE (>) children and apply this styling, which should make adding a date dropdown quick and easy hopefully*/
 
 .name-and-info-section {
   width: 100%;
@@ -104,6 +96,8 @@ background: #E9E1DF;
   grid-gap: 4px;
   transform: translate(10px, 10px);
 }
+
+/* this next piece will override the dropdown selections ALL (*) IMMEDIATE (>) children and apply this styling, which should make adding a date dropdown quicker*/
 
 .dropdown-selections > * {
   width: 100%;
@@ -246,7 +240,6 @@ tr:hover {
   background: #C4C4C4;
   border-radius: 10px;
   border: none;
-
 }
 
 .modal-creators {

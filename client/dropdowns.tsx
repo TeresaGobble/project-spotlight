@@ -13,11 +13,9 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
 const Dropdowns = () => {
-  const { setCrimes, setZoomRate, setMapCenter } = useContext(CrimesContext); //this is already here
-
+  const { setCrimes, setZoomRate, setMapCenter } = useContext(CrimesContext);
 
   const crimes: any[] = [];
-
 
   const [location, setLocation] = useState("");
   const [primaryType, setPrimaryType] = useState("");
@@ -32,7 +30,6 @@ const Dropdowns = () => {
   const [openSub, setOpenSub] = React.useState(false);
   const [openLocation, setOpenLocation] = React.useState(false);
   const [openRadius, setOpenRadius] = React.useState(false);
-
 
   const crimeInfo: any = {
     ARSON: [
@@ -540,7 +537,6 @@ const Dropdowns = () => {
       return [];
     }
   }, [primaryType]);
-
 
   const getSearchedCrime = (primaryType: string, description: string, location: string, searchRadius: string): any => {
 

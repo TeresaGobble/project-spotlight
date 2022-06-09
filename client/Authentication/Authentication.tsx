@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-// need to ask charles for firebase API key
+
 import { auth } from "./firebase-config";
 import { Box, Button, Typography, Modal } from '@mui/material';
 

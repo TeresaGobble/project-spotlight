@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import SearchTable from "./SearchTable";
 import Dropdowns from "./dropdowns";
 import CrimeMap from "./CrimeMap";
-import { CrimesContextProvider } from "./CrimesContext"; // lint error says this implicitly has an "any" type
+import { CrimesContextProvider } from "./CrimesContext";
 import Authentication from "./Authentication/Authentication";
 import Footer from "./Footer";
 
@@ -34,8 +34,6 @@ export interface Crime {
       human_address: string
   }
 }
-
-
 
 const App = () => {
   return (
