@@ -12,6 +12,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
+const { REACT_APP_GEOCODE_API } = process.env;
+
 const Dropdowns = () => {
   const { setCrimes, setZoomRate, setMapCenter } = useContext(CrimesContext);
 
@@ -577,7 +579,7 @@ const Dropdowns = () => {
         method: "GET",
       };
 
-      fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${location}Chicago+IL&apiKey=${geocodeToken.geocodeToken}`, requestOptions)
+      fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${location}Chicago+IL&apiKey=${REACT_APP_GEOCODE_API}`, requestOptions)
         .then(response => response.json())
         .then(result => {
 
