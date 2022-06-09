@@ -11,7 +11,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
 
 const Dropdowns = () => {
   const { setCrimes, setZoomRate, setMapCenter } = useContext(CrimesContext);
@@ -24,7 +23,13 @@ const Dropdowns = () => {
   const [searchRadius, setSearchRadius] = useState("5");
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
+
   const [open, setOpen] = React.useState(false);
+  const [openDate, setOpenDate] = React.useState(false);
+  const [openCrime, setOpenCrime] = React.useState(false);
+  const [openSub, setOpenSub] = React.useState(false);
+  const [openLocation, setOpenLocation] = React.useState(false);
+  const [openRadius, setOpenRadius] = React.useState(false);
 
   const crimeInfo: any = {
     ARSON: [
@@ -538,8 +543,6 @@ const Dropdowns = () => {
     if (primaryType === '' || startDate === null || endDate === null) {
       window.alert('Please select both a Crime and Date before searching');
     } else {
-
-      // setting the zoom rate in the map based on the search radius
       if (searchRadius) {
         const zoomRatesBySearchRadiusSize: object = {
           "1": 14,
@@ -592,6 +595,7 @@ const Dropdowns = () => {
           return geoAppifyResult;
         })
         .then(geoAppifyResult => {
+
           const result = fetch(`https://data.cityofchicago.org/resource/ijzp-q8t2.json?primary_type=${primaryType}${description}&$where=latitude >= ${geoAppifyResult.southernmostLatitude} AND latitude <= ${geoAppifyResult.northernmostLatitude} AND longitude >= ${geoAppifyResult.westernmostLongitude} AND longitude <= ${geoAppifyResult.easternmostLongitude} AND date >= "${newStartDate}T00:00:00.000" AND date <= "${newEndDate}T23:59:59.999"`)
           return result;
         })
@@ -612,7 +616,7 @@ const Dropdowns = () => {
         crimes.push(res.data);
       })
       .catch((err: any) => {
-        console.log("U FAILED", err);
+        console.log("could not retrieve crimes", err);
       });
   }, []);
 
@@ -634,27 +638,65 @@ const Dropdowns = () => {
       <div className="name-and-info-section">
         <div className="name-and-info-item">
           <div>Location  </div>
-          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
-        </div>
+            <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => setOpenLocation(true)}></img>
+            <Modal open={openLocation}>
+              <Box className="location-box" onMouseLeave={() => setOpenLocation(false)}>
+                <p id="modal-text">
+                  This can be as specific as an address or as broad as a zipcode!
+                </p>
+              </Box>
+            </Modal>
+          </div>
 
         <div className="name-and-info-item">
           <div>Crime  </div>
-          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => setOpenCrime(true)}></img>
+            <Modal open={openCrime}>
+              <Box className="crime-box" sx={{ width: 200 }} onMouseLeave={() => setOpenCrime(false)}>
+                <p id="modal-text">
+                  Required Category.
+                  This is a list of every "primary type" of crime as defined by the city of Chicago.
+                </p>
+              </Box>
+            </Modal>
         </div>
 
         <div className="name-and-info-item">
           <div>Subcategory  </div>
-          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => setOpenSub(true)}></img>
+            <Modal open={openSub}>
+              <Box className="sub-box" sx={{ width: 200 }} onMouseLeave={() => setOpenSub(false)}>
+                <p id="modal-text">
+                  This list reflects the subcategories of your chosen crime category.
+                </p>
+              </Box>
+            </Modal>
         </div>
 
         <div className="name-and-info-item">
           <div>Search Area  </div>
-          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => setOpenRadius(true)}></img>
+            <Modal open={openRadius}>
+              <Box className="radius-box" sx={{ width: 200 }} onMouseLeave={() => setOpenRadius(false)}>
+                <p id="modal-text">
+                  If no search radius is chosen, the map will automatically populate results within a 1 mile radius.
+                </p>
+              </Box>
+            </Modal>
         </div>
 
         <div className="name-and-info-item">
           <div>Date  </div>
-          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => window.alert('we allow searches as specific as our data! all crimes are added to our dataset 7 days after the initial report and our data is updated daily to reflect new reports.')}></img>
+          <img className="dropdown-limitations" src="https://i.imgur.com/qDvTXf9.png" onClick={() => setOpenDate(true)}></img>
+            <Modal open={openDate}>
+              <Box className="date-box" sx={{ width: 200 }} onMouseLeave={() => setOpenDate(false)}>
+                <p id="modal-text">
+                  Required Category.
+                  All crimes are added to our dataset 7 days after initial reporting.
+                  Thank you for your patience!
+                </p>
+              </Box>
+            </Modal>
         </div>
       </div>
       <div className="dropdown-selections">
@@ -731,7 +773,6 @@ const Dropdowns = () => {
                 label="Select End Date"
                 value={endDate}
                 onChange={(newValue) => {
-                  // console.log(newValue.toISOString());
                   setEndDate(newValue);
                 }}
                 renderInput={(params) => <TextField {...params} />}

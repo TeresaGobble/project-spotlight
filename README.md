@@ -29,6 +29,21 @@ Users are able to download the search results as CSV files, visit the City of Ch
 
 <img src="https://github.com/Mountain-Everest/project-spotlight/blob/main/gifs/footer.gif" width="60%" height="60%" />
 
+### App Functionality
+Project Spotlight allows users to search Chicago crimes by type of crime and date range. In addition, users have the option to filter based on specific crime types, location, and radius
+
+<img src="https://github.com/Mountain-Everest/project-spotlight/blob/main/gifs/app.gif" width="60%" height="60%" />
+
+### Limitations
+Each filter is limited by the capabilities of The City of Chicago's API. Users can click a question mark to obtain a better understanding of each limitation.
+
+<img src="https://github.com/Mountain-Everest/project-spotlight/blob/main/gifs/limitations.gif" width="60%" height="60%" />
+
+### Footer
+Users are able to download the search results as CSV files, visit the City of Chicago raw crime data, and visit the LinkedIn page of each contributor.
+
+<img src="https://github.com/Mountain-Everest/project-spotlight/blob/main/gifs/footer.gif" width="60%" height="60%" />
+
 ### Contributors
 - Anisah Majeed { [Github](https://github.com/yellowstrings) || [LinkedIn](https://www.linkedin.com/in/yellowstrings/) }
 - Charles Wilshire { [Github](https://github.com/clwilshire) || [LinkedIn](https://www.linkedin.com/in/charles-wilshire/) }

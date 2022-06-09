@@ -65,26 +65,25 @@ const Footer = () => {
   };
 
   return (
-    <div className="footer">
-      <div>
+    <div className="footer"> <div>
         <button className="modal-creators" onClick={handleOpen}>About the Creators</button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-        >
-          <Box sx={style}>
-            <div>
-              <Button size="large" id="modal-modal-title" component="h1" onClick={openAnisah}>Anisah Majeed</Button>
-              <br></br>
-              <Button size="large" id="modal-modal-title" component="h1" onClick={openCharles}>Charles Wilshire</Button>
-              <br></br>
-              <Button size="large" id="modal-modal-title" component="h1" onClick={openTeresa}>Teresa Gobble</Button>
-            </div>
-          </Box>
-        </Modal>
-      </div>
-      <button onClick={openChicago}>City of Chicago Crime Data</button>
-      <button onClick={get}>Download Search Results (.csv)</button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+          >
+            <Box sx={style}>
+              <div>
+                <Button size="large" id="modal-modal-title" component="h1" onClick={openAnisah}>Anisah Majeed</Button>
+                <br></br>
+                <Button size="large" id="modal-modal-title" component="h1" onClick={openCharles}>Charles Wilshire</Button>
+                <br></br>
+                <Button size="large" id="modal-modal-title" component="h1" onClick={openTeresa}>Teresa Gobble</Button>
+              </div>
+            </Box>
+          </Modal>
+        </div>
+        <button onClick={openChicago}>City of Chicago Crime Data</button>
+        <button onClick={get}>Download Search Results (.csv)</button>
     </div>
   )
 }

@@ -11,7 +11,7 @@ interface CrimeSample {
 }
 
 const CrimeMap = () => {
-  const { crimes, mapCenter, zoomRate } = useContext(CrimesContext) // this is how we grab the context for rendering
+  const { crimes, mapCenter, zoomRate } = useContext(CrimesContext);
 
   //array containing crimes that fit the user's entered criteria
   function SetViewOnClick({ mapCenter, zoomRate}) {
@@ -24,6 +24,7 @@ const CrimeMap = () => {
   return (
     <>
       <MapContainer center={mapCenter} zoom={zoomRate} scrollWheelZoom={false}>
+
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

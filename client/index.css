@@ -115,7 +115,54 @@ background: #E9E1DF;
   transform: translateY(-12px);
 }
 
-.search-icon{
+.location-box {
+  position: relative;
+  left: 8%;
+  top: 18%;
+  width: 200px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  background: whitesmoke
+}
+
+.crime-box {
+  position: relative;
+  left: 25%;
+  top: 18%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  background: whitesmoke
+}
+
+.sub-box {
+  position: relative;
+  left: 40%;
+  top: 18%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  background: whitesmoke
+}
+
+.radius-box {
+  position: relative;
+  left: 52%;
+  top: 18%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  background: whitesmoke
+}
+
+.date-box {
+  position: relative;
+  left: 65%;
+  top: 18%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  image-rendering: url(https://i.imgur.com/qDvTXf9.png);
+  background: whitesmoke
+}
+
+.search-icon {
   color: #fff;
   image-rendering: url(https://i.imgur.com/dCoTssr.png);
 }
